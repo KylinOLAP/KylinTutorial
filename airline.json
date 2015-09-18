@@ -1,0 +1,68 @@
+{
+	"name": "DEFAULT.KYLILN_SAMPLE_AIRLINE",
+	"children": [{
+		"name": "DEFAULT.KYLILN_SAMPLE_ORIGIN",
+		"join": "inner",
+		"jointip":"DEFAULT.KYLILN_SAMPLE_AIRLINE.ORIGIN_AIRPORT_ID = DEFAULT.KYLILN_SAMPLE_ORIGIN.ORIGIN_AIRPORT_ID",
+		"col": [{
+			"colname": "ORIGIN_AIRPORT_ID",
+			"coltype": "string"
+
+		}, {
+			"colname": "ORIGIN",
+			"coltype": "string"
+		}, {
+			"colname": "ORIGIN_CITY",
+			"coltype": "string"
+		}]
+	}, {
+		"name": "DEFAULT.KYLILN_SAMPLE_DEST",
+		"join": "inner",
+		"jointip":"DEFAULT.KYLILN_SAMPLE_AIRLINE.DEST_AIRPORT_ID = DEFAULT.KYLILN_SAMPLE_DEST.DEST_AIRPORT_ID",
+		"col": [{
+			"colname": "DEST_AIRPORT_ID",
+			"coltype": "string"
+
+		}, {
+			"colname": "DEST",
+			"coltype": "string"
+
+		}, {
+			"colname": "DEST_CITY",
+			"coltype": "string"
+		}]
+	}],
+	"type": "origin",
+	"col": [{
+		"colname": "FLIGHT_ID",
+		"coltype": "string"
+
+	}, {
+		"colname": "FLIGHT_DATE",
+		"coltype": "date"
+	} ,{
+		"colname": "FLIGHT_NUM",
+		"coltype": "string"
+	} ,{
+		"colname": "DEP_TIME",
+		"coltype": "string"
+	} ,{
+		"colname": "DEP_DELAY",
+		"coltype": "decimal"
+	} ,{
+		"colname": "ARRIVAL_TIME",
+		"coltype": "string"
+	} ,{
+		"colname": "ARRIVAL_DELAY",
+		"coltype": "decimal"
+	} ,{
+		"colname": "UNIQUE_CARRIER",
+		"coltype": "string"
+	} ,{
+		"colname": "ORIGIN_AIRPORT_ID",
+		"coltype": "string"
+	} ,{
+		"colname": "DEST_AIRPORT_ID",
+		"coltype": "string"
+	}]
+}

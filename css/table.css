@@ -1,0 +1,8 @@
+.table-responsive {
+  overflow: auto;
+  width= 100%;
+}
+.table-responsive > .table tr th,
+.table-responsive > .table tr td {
+  white-space: normal!important;
+}

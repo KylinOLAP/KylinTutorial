@@ -1,0 +1,191 @@
+/* Reset.css */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+margin: 0;
+padding: 0;
+border: 0;
+font-size: 100%;
+font: inherit;
+vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+display: block;
+}
+body {
+line-height: 1;
+}
+ol, ul {
+list-style: none;
+}
+blockquote, q {
+quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+content: '';
+content: none;
+}
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+a img {
+border: none;
+}
+
+/* Form inspired by normalize.css */
+form {
+margin: 0;
+}
+fieldset {
+border: 0px solid #ffffff;
+margin: 0 2px;
+padding: 0.35em 0.625em 0.75em;
+}
+legend {
+border: 0;
+padding: 0;
+white-space: normal;
+*margin-left: -7px;
+}
+input[type="button"],
+input[type="submit"],
+button {
+border: 0;
+}
+button,
+input,
+select,
+textarea {
+font-family: inherit;
+font-size: 100%;
+font-size: 100%;
+margin: 0;
+vertical-align: baseline;
+*vertical-align: middle;
+}
+button,
+input {
+line-height: normal;
+}
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+-webkit-appearance: button;
+cursor: pointer;
+*overflow: visible;
+}
+button[disabled],
+input[disabled] {
+cursor: default;
+}
+input[type="checkbox"],
+input[type="radio"] {
+box-sizing: border-box;
+padding: 0;
+*height: 13px;
+*width: 13px;
+}
+input[type="search"] {
+-webkit-appearance: textfield; /* 1 */
+-moz-box-sizing: content-box;
+-webkit-box-sizing: content-box; /* 2 */
+box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+-webkit-appearance: none;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+border: 0;
+padding: 0;
+}
+textarea {
+overflow: auto;
+vertical-align: top;
+}
+
+/* Responsive grid inspired by Skeleton */
+/* Default 960 grid */
+.row { position: relative; width: 960px; margin: 0 auto; } /* 960px */
+.row .column, .row .columns { float: left; display: inline; margin-left: 10px; margin-right: 10px; }
+
+/* Nested column classes */
+.column.alpha, .columns.alpha { margin-left: 0; }
+.column.omega, .columns.omega { margin-right: 0; }
+
+/* Base grid */
+.row .one.column,
+.row .one.columns { width: 60px; }
+.row .two.columns { width: 140px; }
+.row .three.columns { width: 220px; }
+.row .four.columns { width: 300px; }
+.row .five.columns { width: 380px; }
+.row .six.columns { width: 460px; }
+.row .seven.columns { width: 540px; }
+.row .eight.columns { width: 620px; }
+.row .nine.columns { width: 700px; }
+.row .ten.columns { width: 780px; }
+.row .eleven.columns { width: 860px; }
+.row .twelve.columns { width: 940px; }
+
+/* Special layout grid */
+.row .desktop-one.column,
+.row .desktop-one.columns { width: 60px; }
+.row .desktop-two.columns { width: 140px; }
+.row .desktop-two-point-four.columns { width: 197px; }
+.row .desktop-three.columns { width: 220px; }
+.row .desktop-four.columns { width: 300px; }
+.row .desktop-five.columns { width: 380px; }
+.row .desktop-six.columns { width: 460px; }
+.row .desktop-seven.columns { width: 540px; }
+.row .desktop-eight.columns { width: 620px; }
+.row .desktop-nine.columns { width: 700px; }
+.row .desktop-ten.columns { width: 780px; }
+.row .desktop-eleven.columns { width: 860px; }
+.row .desktop-twelve.columns { width: 940px; }
+
+/* Offsets */
+.row .offset-by-one { margin-left: 90px; }
+.row .offset-by-two { margin-left: 170px; }
+.row .offset-by-three { margin-left: 250px; }
+.row .offset-by-four { margin-left: 330px; }
+.row .offset-by-five { margin-left: 410px; }
+.row .offset-by-six { margin-left: 490px; }
+.row .offset-by-seven { margin-left: 570px; }
+.row .offset-by-eight { margin-left: 650px; }
+.row .offset-by-eight-point-five { margin-left: 672px; }
+.row .offset-by-nine { margin-left: 730px; }
+.row .offset-by-ten { margin-left: 810px; }
+.row .offset-by-eleven { margin-left: 890px; }
+
+
+
+/* Clearing */
+/* Use clearfix class on parent to clear nested columns, or wrap each row of columns in a <div class="row"> */
+.row:after { content: "\0020"; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix:before,
+.clearfix:after,
+.row:before,
+.row:after {
+content: '\0020';
+display: block;
+overflow: hidden;
+visibility: hidden;
+width: 0;
+height: 0; }
+.row:after,
+.clearfix:after {
+clear: both; }
+.row,
+.clearfix {
+zoom: 1; }
+/* You can also use a <br class="clear" /> to clear columns */
+.clear {
+clear: both;
+display: block;
+overflow: hidden;
+visibility: hidden;
+width: 0;
+height: 0;
+}

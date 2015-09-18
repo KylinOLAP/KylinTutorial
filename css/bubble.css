@@ -1,0 +1,133 @@
+.trigger {
+    z-index: 50;
+}
+
+.bubbleInfo {
+    position: relative;
+}
+
+.textInfo {
+    position: relative;
+}
+
+/* Bubble pop-up */
+.popup {
+    position: absolute;
+    display: none;
+    z-index: 50;
+    border-collapse: collapse;
+}
+
+.popup2 {
+    position: absolute;
+    display: none;
+    z-index: 50;
+    border-collapse: collapse;
+}
+
+.popup td.corner {
+    height: 15px;
+    width: 19px;
+}
+.popup2 td.corner {
+    height: 15px;
+    width: 19px;
+}
+
+.popup td#topleft { background-image: url(images/bubble-1.png); }
+.popup td.top { background-image: url(images/bubble-2.png); }
+.popup td#topright { background-image: url(images/bubble-3.png); }
+.popup td.left { background-image: url(images/bubble-4.png); }
+.popup td.right { background-image: url(images/bubble-5.png); }
+.popup td#bottomleft { background-image: url(images/bubble-6.png); }
+.popup td.bottom { background-image: url(images/bubble-7.png); text-align: center;}
+.popup td.bottom img { display: block; margin: 0 auto; }
+.popup td#bottomright { background-image: url(images/bubble-8.png); }
+
+.popup2 td#topleft { background-image: url(images/bubble-1.png); }
+.popup2 td.top { background-image: url(images/bubble-2.png); }
+.popup2 td#topright { background-image: url(images/bubble-3.png); }
+.popup2 td.left { background-image: url(images/bubble-4.png); }
+.popup2 td.right { background-image: url(images/bubble-5.png); }
+.popup2 td#bottomleft { background-image: url(images/bubble-6.png); }
+.popup2 td.bottom { background-image: url(images/bubble-7.png); text-align: center;}
+.popup2 td.bottom img { display: block; margin: 0 auto; }
+.popup2 td#bottomright { background-image: url(images/bubble-8.png); }
+
+.popup div.popup-contents {
+    font-size: 12px;
+    line-height: 1.2em;
+    background-color: #fff;
+    color: #666;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
+}
+
+.popup2 div.popup-contents {
+    font-size: 12px;
+    line-height: 1.2em;
+    background-color: #fff;
+    color: #666;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
+}
+
+.popup table.popup-contents {
+    font-size: 12px;
+    line-height: 1.2em;
+    background-color: #fff;
+    color: #666;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
+}
+
+.popup2 table.popup-contents {
+    font-size: 12px;
+    line-height: 1.2em;
+    background-color: #fff;
+    color: #666;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
+}
+
+table.popup-contents th {
+    text-align: right;
+    text-transform: lowercase;
+}
+
+table.popup-contents td {
+    text-align: left;
+}
+
+tr#release-notes th {
+    text-align: left;
+    text-indent: -9999px;
+    background: url(images/starburst.gif) no-repeat top right;
+    height: 17px;
+}
+
+tr#release-notes td a {
+    color: #333;
+}
+
+#dpop {
+    top: -80px;
+    left: 10px;
+}
+
+#pop1 {
+    position: fixed !important;
+    top: 45px;
+    left: 800px;
+    width: 200px;
+}
+
+#pop2 {
+    position: fixed !important;
+    top: 70px;
+    left: 800px;
+    width: 200px;
+}
+
+#pop3 {
+    position: fixed !important;
+    top: 105px;
+    left: 800px;
+    width: 200px;
+}

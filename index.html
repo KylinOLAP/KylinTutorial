@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--[if IE 7]><html lang="en" class="ie7"><![endif]-->
+<!--[if IE 8]><html lang="en" class="ie8"><![endif]-->
+<!--[if IE 9]><html lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><html lang="en"><![endif]-->
+<!--[if !IE]><html lang="en"><![endif]-->
+<head>
+	<meta charset="utf-8">
+	<script src="js/wow.min.js"></script>
+	<script>
+		wow = new WOW(
+			{
+				boxClass:     'wow',      // default
+				animateClass: 'animated', // default
+				offset:       0,          // default
+				mobile:       true,       // default
+				live:         true        // default
+			}
+		)
+		wow.init();
+	</script>
+	<script src="js/lib/modernizr.js"></script>
+	<script src="js/lib/pace.js"></script>
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	
+	<title>Kylin-demo</title>
+	
+	<meta name="robots" content="index, nofollow">
+	<meta name="description" content="A demo website of Apache Kylin">
+	<meta name="keywords" content="Kylin, demo, tutorial">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/lib/font-awesome.min.css">
+	<link rel="stylesheet" href="css/lib/magnific-popup.css">
+	<link rel="stylesheet" href="css/lib/lite.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/blue.css">
+	<link rel="stylesheet" href="css/block.css">
+	<link rel="stylesheet" href="css/node.css">
+	<link rel="stylesheet" href="css/bubble.css">
+	<link rel="stylesheet" href="css/box.css">
+	<link rel="stylesheet" href="css/table.css">
+	<link rel="stylesheet" href="css/ng-grid.css">
+	
+	<link rel="shortcut icon" href="images/favicon/favicon.ico">
+</head>
+
+
+<body class="body-push personal auto-close-menu" ng-app="kylinApp">
+	<div class="content">
+		
+		<!-- Slides -->
+		<section id="slides">
+			<div style="background-image: url('images/placeholder-slide-2.jpg');" class="fullscreen-image1">
+				<div class="header-center fade-in">
+					<img src="images/logo1.png" alt="logo" class="kylin-logo2 wow bounceInDown" data-wow-delay="0.5s">
+					<h1 class="fittext white wow bounceInUp" data-wow-delay="0.3s">Welcome to Apache Kylin</h1>
+					<p class="uppercase white wow bounceInUp" data-wow-delay="0.5s">Extreme OLAP Engine for Big Data</p>
+					<p><a href="#position" class="button-large withmargin white-border wow bounceInUp" data-wow-delay="0.7s">Quick Tutorial<i class="fa fa-fw fa-angle-double-down" style="font-size: 15px"></i></a></p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Set position -->
+		<section id="position" class="position"></section>
+
+		<!-- Query -->
+		<section id="query" class="query">
+			<div class="row widerow wow bounceInUp" data-wow-delay="0.3s">
+				<div class='col-xs-3 tables'>
+					<h3 id="blue">Tables</h3>
+					<ul><span><a onClick="inputTab()">KYLIN_SAMPLE_AIRLINE</a></span>
+						<li><a onClick="inputTab()">FLIGHT_DATE (date)</a></li>
+						<li><a onClick="inputTab()">ORIGIN_AIRPPORT_ID (varchar)</a></li>
+						<li><a onClick="inputTab()">DEST_AIRPORT_ID (varchar)</a></li>
+						<li><a onClick="inputTab()">DEPARTURE_DELAY (decimal)</a></li>
+						<li><a onClick="inputTab()">ARRIVAL_DELAY (decimal)</a></li>
+					</ul>
+					<ul><span><a onClick="inputTab()">KYLIN_SAMPLE_DEST</a></span>
+						<li><a onClick="inputTab()">DEST (varchar)</a></li>
+						<li><a onClick="inputTab()">DEST_CITY (varchar)</a></li>
+						<li><a onClick="inputTab()">DEST_AIRPORT_ID (varchar)</a></li>
+					</ul>
+					<ul><span><a onClick="inputTab()">KYLIN_SAMPLE_ORIGIN</a></span>
+						<li><a onClick="inputTab()">ORIGIN (varchar)</a></li>
+						<li><a onClick="inputTab()">ORIGIN_CITY (varchar)</a></li>
+						<li><a onClick="inputTab()">ORIGIN_AIRPORT_ID (varchar)</a></li>
+					</ul>
+				</div>
+				<div class='box col-xs-9' >
+					<div class='box-header'>
+						<h3 class='box-title'>Interactive <small>OLAP on hadoop</small></h3>
+					</div>
+
+					<div class='box-body pad' ng-controller="gridCtrl">
+						{{firstName}}
+						<form>
+							<textarea id="queryarea"class="textarea"  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+							<div class="row no-spacing">
+								<div class="offset-by-eight-point-five text-left">
+									<p><a href="#query" class="button no-margin" ng-click="submitQuery()">Try Me <i class="fa fa-fw fa-hand-o-up" style="font-size: 15px"></i></a></p>
+								</div>
+							</div>
+						</form>
+						<div class="loading" ng-if="queryState">
+							<i class="fa fa-spinner fa-spin loadicon"></i>
+							executing
+						</div>
+						<div id="result-grid" style="display:none;">
+							<div><h5>Response time: {{restime/1000 | number: 2}}s</h5></div>
+							<div class="gridStyle" ng-grid="gridOptions" style="height: 300px; width:auto;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p><a href="#data-model" class="button-large dark-border">Data Model<i class="fa fa-fw fa-angle-double-down" style="font-size: 15px"></i></a></p>
+			<!--a href="#data-model" class="down"><i class="icon-angle-down"></i></a-->
+		</section>
+
+		<!-- data-model -->
+		<section id="data-model" class="data-model">
+			<div class="row">
+				<div class="ten columns offset-by-one title wow bounceIn">
+					<h1>Glance over</h1>
+					<h2>Data Model</h2>
+					<hr>
+				</div>
+			</div>
+
+			<div class="row widerow">
+				<!--div>
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+					<path class="link" d="M0,200C90,200 90,66.66666666666667 180,66.66666666666667"></path>
+					</svg>
+				</div-->
+				<div class="col-xs-7 wow rotateInDownLeft">
+					<div id="tree-container"></div>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+					<script src="js/tree.js"></script>
+				</div>
+				<div class="col-xs-5 schema wow rotateInDownRight">
+					<h3>Data Model:  <normal>this data model maintains airline data from Jan 1970 to Apr 2014</normal></h3>
+					<h3>Fact Table:  <normal>table AIRLINE contains information of each flight including time delay</normal></h3>
+					<h3>Lookup Table:  <normal>table ORIGIN and DEST contain detail information of the departure and arrival airport</normal></h3>
+					<h6><normal>Check <a href="http://kylin.incubator.apache.org/docs/gettingstarted/terminology.html">here</a> to learn the related terminology</normal></h6>
+				</div>
+			</div>
+			<p><a href="#position2" class="button-large withmargin white-border">Cube Design<i class="fa fa-fw fa-angle-double-down" style="font-size: 15px"></i></a></p>
+		</section>
+
+		<!-- Set position -->
+		<section id="position2" class="position2"></section>
+
+		<!-- Cube name -->
+		<section id="cube-name" class="cube-name">
+			<div class="row">
+				<div class="ten columns offset-by-one title wow bounceIn">
+					<h2 class="grey">Cube <span class="normal">airline</span></h2>
+				</div>
+			</div>
+		</section>
+
+		<!-- Cube design -->
+		<section id="cube-design" class="cube-design">	
+			<div class="row fadeInLeftBig wow">
+				<h1 class="dimensions">Dimensions</h1>
+				<br />
+				<div>
+					<table class="table table-striped">
+						<tr>
+							<td>Name</td>
+							<td>Table Name</td>
+							<td>Data Type</td>
+							<td>Type</td>
+						</tr>
+						<tr class="bubbleInfo">
+							<td>DEFAULT.KYLIN_SAMPLE_AIRLINE.FLIGHT_DATE</td>
+							<td>DEFAULT.KYLIN_SAMPLE_AIRLINE</td>
+							<td>date</td>
+							<td>
+								normal <i class="fa fa-fw fa-question trigger"></i>
+								<table id="pop1" class="popup">
+									<tbody>
+										<tr>
+											<td id="topleft" class="corner"></td>
+											<td class="top"></td>
+											<td id="topright" class="corner"></td>
+										</tr>
+										<tr>
+											<td class="left"></td>
+											<td>
+												<div class="popup-contents">
+													Colume: "FLIGHT_DATE"
+												</div>
+											</td>
+											<td class="right"></td>
+										</tr>
+										<tr>
+											<td class="corner" id="bottomleft"></td>
+											<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+											<td id="bottomright" class="corner"></td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						<tr class="bubbleInfo">
+							<td>DEFAULT.KYLIN_SAMPLE_ORIGIN_DERIVED</td>
+							<td>DEFAULT.KYLIN_SAMPLE_ORIGIN</td>
+							<td>string</td>
+							<td>
+								derived <i class="fa fa-fw fa-question trigger"></i>
+								<table id="pop2" class="popup">
+									<tbody>
+										<tr>
+											<td id="topleft" class="corner"></td>
+											<td class="top"></td>
+											<td id="topright" class="corner"></td>
+										</tr>
+										<tr>
+											<td class="left"></td>
+											<td>
+												<div class="popup-contents">
+													Derived from colume "ORIGIN", "ORIGIN_CITY"
+												</div>
+											</td>
+											<td class="right"></td>
+										</tr>
+										<tr>
+											<td class="corner" id="bottomleft"></td>
+											<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+											<td id="bottomright" class="corner"></td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						<tr class="bubbleInfo">
+							<td>DEFAULT.KYLIN_SAMPLE_DEST_DERIVED</td>
+							<td>DEFAULT.KYLIN_SAMPLE_DEST</td>
+							<td>string</td>
+							<td>
+								derived <i class="fa fa-fw fa-question trigger"></i>
+								<table id="pop3" class="popup">
+									<tbody>
+										<tr>
+											<td id="topleft" class="corner"></td>
+											<td class="top"></td>
+											<td id="topright" class="corner"></td>
+										</tr>
+										<tr>
+											<td class="left"></td>
+											<td>
+												<div class="popup-contents">
+													Derived from colume "DEST", "DEST_CITY"
+												</div>
+											</td>
+											<td class="right"></td>
+										</tr>
+										<tr>
+											<td class="corner" id="bottomleft"></td>
+											<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+											<td id="bottomright" class="corner"></td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row fadeInRightBig wow">
+				<h1 class="measures">Measures</h1>
+				<br />
+				<div>
+					<table class="table table-striped">
+						<tr>
+							<td>Name</td>
+							<td>Expression</td>
+							<td>Param Type</td>
+							<td>Param Value</td>
+							<td>Return Type</td>
+						</tr>
+						<tr>
+							<td>_COUNT_</td>
+							<td>COUNT</td>
+							<td>constant</td>
+							<td>1</td>
+							<td>bigint</td>
+						</tr>
+						<tr>
+							<td>SUM_DEP_DELAY</td>
+							<td>SUM</td>
+							<td>column</td>
+							<td>DEPARTURE_DELAY</td>
+							<td>decimal(6,2)</td>
+						</tr>
+						<tr>
+							<td>SUM_ARR_DELAY</td>
+							<td>SUM</td>
+							<td>column</td>
+							<td>ARRIVAL_DELAY</td>
+							<td>decimal(6,2)</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<br />
+			<br />
+			<!--a href="#workflow" class="down"><i class="icon-angle-down"></i></a-->
+			<p style="margin-bottom: 0px"><a href="#workflow" class="button-large withmargin2 dark-border">Build Workflow<i class="fa fa-fw fa-angle-double-down" style="font-size: 15px"></i></a></p>
+		</section>
+
+		<!-- Workflow -->
+		<section id="workflow" class="workflow" ng-controller="stepCtrl">
+			<!-- Title -->
+			<div class="row">
+				<div class="ten columns offset-by-one title wow bounceIn">
+					<h2>Build Workflow</h2>
+					<hr>
+				</div>
+			</div>
+
+			<!-- workflow steps -->
+			<div class="row widerow">
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="0.4s">
+						<h3>{{steps[0].name}}</h3>
+						<p class="step">Job Name: {{steps[0].jobname}}</p>
+						<span class="arrow1"><img src="images/arrow1.png" alt="" /></span>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[0].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="0.6s">
+						<h3>{{steps[1].name}}</h3>
+						<p class="step">{{steps[1].stepname}}</br>Duration: {{steps[1].duration}}</p>
+						<span class="arrow1"><img src="images/arrow1.png" alt="" /></span>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[1].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="0.8s">
+						<h3>{{steps[2].name}}</h3>
+						<p class="step">{{steps[2].stepname}}</br>Data Size: {{steps[2].datasize}}</br>Duration: {{steps[2].duration}}</p>
+						<span class="arrow1"><img src="images/arrow1.png" alt="" /></span>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[2].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="0.8s">
+						<h3>{{steps[3].name}}</h3>
+						<p class="step">{{steps[3].stepname}}</br>Duration: {{steps[3].duration}}</p>
+						<span class="arrow1"><img src="images/arrow1.png" alt="" /></span>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[3].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="1.0s">
+						<h3>{{steps[4].name}}</h3>
+						<p class="step">{{steps[4].stepname}}</br>Data Size: {{steps[4].datasize}}</br>Duration: {{steps[4].duration}}</p>
+						<span class="arrow3"><img src="images/arrow3.png" alt="" /></span>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[4].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="row widerow">
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="1.8s">
+						<h3>{{steps[9].name}}</h3>
+						<p class="step">{{steps[9].stepname}}</br>Duration: {{steps[9].duration}}</p>
+						<span class="arrow4"><img src="images/arrow4.png" alt="" /></span>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[9].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="1.6s">
+						<h3>{{steps[8].name}}</h3>
+						<p class="step">{{steps[8].stepname}}</br>Data Size: {{steps[8].datasize}}</br>Duration: {{steps[8].duration}}</p>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[8].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="1.4s">
+						<h3>{{steps[7].name}}</h3>
+						<p class="step">{{steps[7].stepname}}</br>Data Size: {{steps[7].datasize}}</br>Duration: {{steps[7].duration}}</p>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[7].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="1.2s">
+						<h3>{{steps[6].name}}</h3>
+						<p class="step">{{steps[6].stepname}}</br>Data Size: {{steps[6].datasize}}</br>Duration: {{steps[6].duration}}</p>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[6].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="1.2s">
+						<h3>{{steps[5].name}}</h3>
+						<p class="step">{{steps[5].stepname}}</br>Data Size: {{steps[5].datasize}}</br>Duration: {{steps[5].duration}}</p>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[5].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="row widerow">
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="2.0s">
+						<h3>{{steps[10].name}}</h3>
+						<p class="step">{{steps[10].stepname}}</br>Data Size: {{steps[10].datasize}}</br>Duration: {{steps[10].duration}}</p>
+						<span class="arrow2"><img src="images/arrow2.png" alt="" /></span>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[10].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="2.2s">
+						<h3>{{steps[11].name}}</h3>
+						<p class="step">{{steps[11].stepname}}</br>Duration: {{steps[11].duration}}</p>
+						<span class="arrow2"><img src="images/arrow2.png" alt="" /></span>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[11].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="2.4s">
+						<h3>{{steps[12].name}}</h3>
+						<p class="step">{{steps[12].stepname}}</br>Duration: {{steps[12].duration}}</p>
+						<span class="arrow2"><img src="images/arrow2.png" alt="" /></span>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[12].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="2.6s">
+						<h3>{{steps[13].name}}</h3>
+						<p class="step">{{steps[13].stepname}}</br>Duration: {{steps[13].duration}}</p>
+						<span class="arrow2"><img src="images/arrow2.png" alt="" /></span>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[13].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- workflow step -->
+				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
+					<div class="trigger wow fadeInUp" data-wow-delay="2.8s">
+						<h3>{{steps[14].name}}</h3>
+						<p class="step">Duration: {{steps[14].duration}}</br>MapReduce Waiting: {{steps[14].mrwaiting}}</p>
+					</div>
+					<table id="dpop" class="popup">
+						<tbody>
+							<tr>
+								<td id="topleft" class="corner"></td>
+								<td class="top"></td>
+								<td id="topright" class="corner"></td>
+							</tr>
+							<tr>
+								<td class="left"></td>
+								<td>
+									<div class="popup-contents">
+										{{steps[14].popup}}
+									</div>
+								</td>
+								<td class="right"></td>
+							</tr>
+							<tr>
+								<td class="corner" id="bottomleft"></td>
+								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
+								<td id="bottomright" class="corner"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+
+		<!-- End -->
+		<section class="end">
+			<div class="row wow bounceIn">
+				<div class="twelve columns">
+					<p>
+						<a href="http://kylin.io" class="button-large withmargin3 white-border">Visit kylin.io</a>
+						<a href="#" class="button-large withmargin3 dark-bg">View Kylin Web</a>
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Scripts -->
+		<script src="js/lib/jquery.min.js"></script>
+		<script src="js/lib/classie.js"></script>
+		<script src="js/lib/smoothscroll.js"></script>
+		<script src="js/lib/jquery.fittext.js"></script>
+		<script src="js/lib/jquery.superslides.min.js"></script>
+		<script src="js/lib/jquery.sudoslider.min.js"></script>
+		<script src="js/lib/jquery.mixitup.min.js"></script>
+		<script src="js/lib/jquery.magnific-popup.min.js"></script>
+		<script src="js/main.js"></script>
+		<script src="js/bubble.js"></script>
+		<script src="js/submitquery.js"></script>
+		<script src="js/angular.js"></script>
+		<script src="js/ng-grid.js"></script>
+		<script src="js/controller.js"></script>
+		<script src="js/namesController.js"></script>
+		<script src="js/ngLoading.js"></script>
+		<script src="js/tabs.js"></script>
+		</div>
+	</body>
+</html>

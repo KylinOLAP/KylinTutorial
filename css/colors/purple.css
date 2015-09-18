@@ -1,0 +1,50 @@
+/* Font color */
+h1.color,
+h2.color,
+h3.color,
+h4.color,
+h5.color,
+h6.color,
+p.color,
+span.color,
+a,
+a.hovercolor:hover,
+span.hovercolor:hover,
+.border,
+.border:hover,
+.menu h1.logo a:hover,
+.menu-left h1.logo a:hover,
+.services-buttons a.current,
+a.filter.active,
+a.filter:hover,
+a.filter.light:hover,
+.contact a:hover,
+.credit a:hover {
+color: #605287;
+}
+
+/* Background color */
+.button,
+.button-large,
+i.small-icon,
+i.medium-icon,
+i.column-icon,
+.services-arrow-prev,
+.services-arrow-next,
+.process,
+.call-to-action,
+.avatars i:hover,
+.quote-arrow-prev,
+.quote-arrow-next,
+.back-to-top,
+.portfolio-arrow-prev,
+.portfolio-arrow-next,
+ol.controls li.current {
+background: #605287;
+}
+
+/* Border color */
+.border,
+.services-buttons a.current {
+border: 2px solid #605287;
+}

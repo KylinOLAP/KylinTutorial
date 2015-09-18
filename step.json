@@ -1,0 +1,100 @@
+{
+"steps": [
+	{
+		"name" : "start",
+		"jobname" : "kylin_airline_sample",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	},
+	{
+		"name" : "step 1",
+		"stepname" : "Create Intermediate Flat Hive Table",
+		"duration" : "4.91 mins",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	},
+	{
+		"name" : "step 2",
+		"stepname" : "Extract Fact Table Distinct Columns",
+		"datasize" : "3.99 KB",
+		"duration" : "1.90 mins",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	},
+	{
+		"name" : "step 3",
+		"stepname" : "Build Dimension Dictionary",
+		"duration" : "0.08 mins",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	},
+	{
+		"name" : "step 4",
+		"stepname" : "Build Base Cuboid Data",
+		"datasize" : "42.45 MB",
+		"duration" : "6.58 mins",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	},
+	{
+		"name" : "step 5",
+		"stepname" : "Build N-Dimension Cuboid Data : 2-Dimension",
+		"datasize" : "6.73 MB",
+		"duration" : "1.20 mins",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	},
+	{
+		"name" : "step 6",
+		"stepname" : "Build N-Dimension Cuboid Data : 1-Dimension",
+		"datasize" : "32.51 KB",
+		"duration" : "0.71 mins",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	},
+	{
+		"name" : "step 7",
+		"stepname" : "Build N-Dimension Cuboid Data : 0-Dimension",
+		"datasize" : "0.08 KB",
+		"duration" : "0.54 mins",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	},
+	{
+		"name" : "step 8",
+		"stepname" : "Calculate HTable Region Splits",
+		"datasize" : "0.08 KB",
+		"duration" : "0.69 mins",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	},
+	{
+		"name" : "step 9",
+		"stepname" : "Create HTable",
+		"duration" : "0.02 mins",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	},
+	{
+		"name" : "step 10",
+		"stepname" : "Convert Cuboid Data to HFile",
+		"datasize" : "22.87 MB",
+		"duration" : "1.06 mins",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	},
+	{
+		"name" : "step 11",
+		"stepname" : "Load HFile to HBase Table",
+		"duration" : "0.01 mins",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	},
+	{
+		"name" : "step 12",
+		"stepname" : "Update Cube Info",
+		"duration" : "0.00 mins",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	},
+	{
+		"name" : "step 13",
+		"stepname" : "Garbage Collection",
+		"duration" : "0.55 mins",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	},
+	{
+		"name" : "end",
+		"duration" : "40.60 mins",
+		"mrwaiting" : "1.38 mins",
+		"popup" : "Merge Cuboid Dictionary</br>Duration: 0.00 mins"
+	}
+]
+}

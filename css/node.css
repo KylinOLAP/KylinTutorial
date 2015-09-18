@@ -1,0 +1,20 @@
+.node {
+  cursor: pointer !important;
+}
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+.node text {
+	fill: #ffffff;
+	font-size: 20px;
+}
+
+.link {
+  fill: none;
+  stroke: #f7f7f7;
+  stroke-width: 1.5px;
+}

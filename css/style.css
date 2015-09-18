@@ -1,0 +1,1278 @@
+@import url(http://fonts.useso.com/css?family=Raleway:100,200,300,400,700,800,900);
+@import url(http://fonts.useso.com/css?family=Volkhov:400,400italic);
+
+
+/* ==================== 1.1 Basic Styling ==================== */
+
+*,
+*:before,
+*:after {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	color: #5c5c5c;
+	background: #ffffff;
+	font-family: 'Raleway', Helvetica, Arial, sans-serif;
+	font-size: 15px;
+	text-align: center;
+}
+
+::selection {
+	background: #1a1a1a;
+	color: #ffffff;
+}
+
+::-moz-selection {
+	background: #1a1a1a;
+	color: #ffffff;
+}
+
+.content {
+	overflow: auto;
+	min-width: 1200px;
+}
+
+
+/* ==================== 1.2 Typography ==================== */
+
+p {
+	font-size: 15px;
+	line-height: 25px;
+	margin-bottom: 25px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: #1a1a1a;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+h1 {
+	font-size: 24px;
+	line-height: 30px;
+}
+
+h2 {
+	font-size: 24px;
+	line-height: 30px;
+}
+
+h3 {
+	font-size: 16px;
+	line-height: 25px;
+}
+
+h4 {
+	font-size: 15px;
+	line-height: 25px;
+}
+
+h5 {
+	font-size: 14px;
+	line-height: 25px;
+}
+
+h6 {
+	font-size: 12px;
+	line-height: 25px;
+}
+
+h1.color,
+h2.color,
+h3.color,
+h4.color,
+h5.color,
+h6.color,
+p.color,
+span.color {
+	color: #f85c37;
+}
+
+h1.dark,
+h2.dark,
+h3.dark,
+h4.dark,
+h5.dark,
+h6.dark,
+p.dark,
+span.dark {
+	color: #1a1a1a;
+}
+
+h1.grey,
+h2.grey,
+h3.grey,
+h4.grey,
+h5.grey,
+h6.grey,
+p.grey,
+span.grey {
+	color: #c0c0c0;
+}
+
+h1.white,
+h2.white,
+h3.white,
+h4.white,
+h5.white,
+h6.white,
+p.white,
+span.white {
+	color: #ffffff;
+}
+
+a.normal,
+span.normal {
+	color: #1a1a1a;
+}
+
+b,
+strong {
+	font-weight: 900;
+}
+
+em {
+	font-style: italic;
+}
+
+small {
+	font-size: 80%;
+}
+
+ol,
+ul {
+	line-height: 25px;
+	margin-bottom: 25px;
+}
+
+.script {
+	font-family: 'Volkhov', Georgia, Times, serif;
+	font-style: italic;
+	font-weight: 400;
+	text-transform: none;
+	letter-spacing: 0;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.copyrights{
+	text-indent:-9999px;
+	height:0;
+	line-height:0;
+	font-size:0;
+	overflow:hidden;
+
+}
+
+h1.fittext {
+	margin-top: 150px;
+	margin-bottom: 10px;
+	font-size: 100px;
+	font-weight: 780;
+	line-height: 100%;
+}
+
+h1.hugetext {
+	margin-bottom: 10px;
+	font-size: 180px;
+	font-weight: 700;
+	line-height: 100%;
+}
+
+p.uppercase {
+	font-size: 16px;
+	margin-bottom: 0;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+
+/* ==================== 1.3 Links ==================== */
+
+a,
+a:hover,
+a:focus {
+	text-decoration: none;
+	outline: 0;
+}
+
+a {
+	color: #f85c37;
+}
+
+a:hover {
+	color: #1a1a1a;
+}
+
+a.hovercolor:hover,
+span.hovercolor:hover {
+	color: #f85c37;
+}
+
+a img {
+	text-decoration: none;
+	vertical-align: bottom;
+}
+
+a.inverted {
+	color: #1a1a1a;
+}
+
+a.inverted:hover {
+	color: #f85c37;
+}
+
+
+/* ==================== 1.4 Buttons and Icons ==================== */
+
+.button {
+	color: #ffffff;
+	background: #f85c37;
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+	padding: 8px 11px 7px;
+	border-radius: 0;
+	margin: 25px 5px;
+}
+
+.button-large {
+	color: #ffffff;
+	background: #f85c37;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	padding: 10px 18px 9px;
+	border-radius: 0;
+}
+
+.withmargin {
+	margin: 25px 5px;
+}
+
+.withmargin2 {
+	margin: 0px 5px 25px 5px;
+}
+
+.withmargin3 {
+	margin: 35px 20px 5px 20px;
+}
+
+.button.border,
+.button.white-border,
+.button.dark-border {
+	padding: 6px 12px 5px;
+}
+
+.button-large.border,
+.button-large.white-border,
+.button-large.dark-border {
+	padding: 8px 16px 7px;
+}
+
+.button:hover,
+.button-large:hover {
+	color: #ffffff;
+			box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+	   -moz-box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+	-webkit-box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+}
+
+.button i.icon-left,
+.button-large i.icon-left {
+	margin-right: 8px;
+}
+
+.button i.icon-right,
+.button-large i.icon-right {
+	margin-left: 8px;
+}
+
+/* Fixing the broken box model for input / buttons */
+input[type="button"].button,
+input[type="submit"].button,
+button.button {
+	padding: 13px 14px 13px;
+}
+
+input[type="button"].button-large,
+input[type="submit"].button-large,
+button.button-large {
+	padding: 13px 18px 12px;
+}
+
+input[type="button"].button.border,
+input[type="button"].button.white-border,
+input[type="button"].button.dark-border,
+input[type="submit"].button.border,
+input[type="submit"].button.white-border,
+input[type="submit"].button.dark-border,
+button.button.border,
+button.button.white-border,
+button.button.dark-border {
+	padding: 11px 12px 11px;
+}
+
+input[type="button"].button-large.border,
+input[type="button"].button-large.white-border,
+input[type="button"].button-large.dark-border,
+input[type="submit"].button-large.border,
+input[type="submit"].button-large.white-border,
+input[type="submit"].button-large.dark-border,
+button.button-large.border,
+button.button-large.white-border,
+button.button-large.dark-border {
+	padding: 11px 18px 10px;
+}
+
+/* Icons */
+i.small-icon {
+	color: #ffffff;
+	background: #f85c37;
+	display: inline-block;
+	vertical-align: middle; 
+	text-align: center;
+	width: 24px;
+	height: 24px;
+	font-size: 14px;
+	line-height: 24px;
+	margin: 25px 2px;
+	border-radius: 50%;
+}
+
+i.medium-icon {
+	color: #ffffff;
+	background: #f85c37;
+	display: inline-block;
+	vertical-align: middle; 
+	text-align: center;
+	width: 40px;
+	height: 40px;
+	font-size: 18px;
+	line-height: 38px;
+	margin: 25px 5px;
+	border-radius: 50%;
+}
+
+i.column-icon {
+	color: #ffffff;
+	background: #f85c37;
+	display: inline-block;
+	vertical-align: middle; 
+	text-align: center;
+	width: 60px;
+	height: 60px;
+	font-size: 28px;
+	line-height: 60px;
+	border-radius: 50%;
+	margin-bottom: 25px;
+}
+
+i.column-icon:hover {
+	font-size: 36px;
+}
+
+/* Styling for Buttons and Icons */
+.white-bg {
+	background: #ffffff!important;
+	color: #1a1a1a;
+}
+
+.white-bg:hover {
+	color: #1a1a1a;
+			box-shadow: inset 0px 0px 100px rgba(0,0,0,0.2);
+	   -moz-box-shadow: inset 0px 0px 100px rgba(0,0,0,0.2);
+	-webkit-box-shadow: inset 0px 0px 100px rgba(0,0,0,0.2);
+}
+
+.dark-bg {
+	background: #1a1a1a!important;
+	color: #ffffff;
+}
+
+.dark-bg:hover {
+	color: #ffffff;
+			box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+	   -moz-box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+	-webkit-box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+}
+
+.border {
+	background: 0!important;
+	color: #f85c37;
+	border: 2px solid #f85c37;
+}
+
+.border:hover {
+	color: #f85c37;
+			box-shadow: inset 0px 0px 100px rgba(0,0,0,0.2);
+	   -moz-box-shadow: inset 0px 0px 100px rgba(0,0,0,0.2);
+	-webkit-box-shadow: inset 0px 0px 100px rgba(0,0,0,0.2);
+}
+
+.white-border {
+	background: 0!important;
+	color: #ffffff;
+	border: 2px solid #ffffff;
+	outline: -2px;
+}
+
+.white-border:hover {
+	color: #ffffff;
+			box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+	   -moz-box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+	-webkit-box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+}
+
+.dark-border {
+	background: 0!important;
+	color: #3CAEC3;
+	border: 2px solid #3CAEC3;
+}
+
+.dark-border:hover {
+	color: #3CAEC3;
+			box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+	   -moz-box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+	-webkit-box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+}
+
+
+/* ==================== 1.5 Forms ==================== */
+
+form {
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+
+input[type=text],
+input[type=url],
+input[type=tel],
+input[type=number],
+input[type=email],
+textarea {
+	width: 100%;
+	height: 40px;
+	display: block;
+	border: 2px solid #ffffff;
+	background: #ffffff;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 15px;
+	padding-left: 6px;
+	border-radius: 0;
+	margin: 0 0 10px 0;
+	-webkit-transition: all .1s ease-in-out;
+	   -moz-transition: all .1s ease-in-out;
+		-ms-transition: all .1s ease-in-out;
+		 -o-transition: all .1s ease-in-out;
+			transition: all .1s ease-in-out;
+}
+
+textarea {
+	padding-top: 9px;
+	overflow: auto;
+	vertical-align: top;
+	resize: none;
+}
+
+.placeholder {
+	color: #808080;
+}
+
+:-moz-placeholder {
+	color: #808080;
+}
+
+::-moz-placeholder {
+	color: #808080;
+}
+
+:-ms-input-placeholder {
+	color: #808080;
+}
+
+::-webkit-input-placeholder {
+	color: #808080;
+}
+
+input:focus,
+textarea:focus {
+	border-color: #c0c0c0;
+	outline: 0;
+	color: #1a1a1a;
+	-webkit-transition: all .1s ease-in-out;
+	   -moz-transition: all .1s ease-in-out;
+		-ms-transition: all .1s ease-in-out;
+		 -o-transition: all .1s ease-in-out;
+			transition: all .1s ease-in-out;
+}
+
+input.error,
+textarea.error {
+	border-color: #e53a2e;
+	-webkit-transition: all .1s ease-in-out;
+	   -moz-transition: all .1s ease-in-out;
+		-ms-transition: all .1s ease-in-out;
+		 -o-transition: all .1s ease-in-out;
+			transition: all .1s ease-in-out;
+}
+
+
+/* ==================== 1.6 Other General Elements ==================== */
+
+hr {
+	border-top: 1px solid #c0c0c0;
+	border-right: 0;
+	border-bottom: 1px solid #c0c0c0;
+	border-left: 0;
+	margin: 60px 0;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+.image-center {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.image-circle {
+	border-radius: 50%;
+}
+
+.column-border {
+	border-left: 2px solid #d6d6d6;
+	padding-left: 20px;
+}
+
+/* More control over margins */
+.margin {
+	margin-top: 25px!important;
+	margin-bottom: 25px!important;
+}
+.margin-top {
+	margin-top: 25px!important;
+}
+
+.margin-bottom {
+	margin-bottom: 25px!important;
+}
+
+.no-margin {
+	margin: 0!important;
+}
+
+.no-margin-top {
+	margin-top: 0!important;
+}
+
+.no-margin-bottom {
+	margin-bottom: 0!important;
+}
+
+/* Title settings */
+.title h1 {
+	font-size: 14px;
+	color: #c0c0c0;
+}
+
+.title hr {
+	width: 60px;
+	margin: 20px auto 30px;
+	border: 1px solid #c0c0c0;
+}
+
+/* Headers */
+.header {
+	position: relative;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	background-position: center bottom;
+	width: 100%;
+	height: 480px;
+}
+
+.header-inherited {
+	position: inherited;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	background-position: center center;
+	width: 100%;
+	height: 480px;
+}
+
+.header-center {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+		-ms-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+	display: inline-block;
+	width: 880px;
+}
+
+/* Animation of the content inside the header */
+.header-center.fade-in {
+	zoom: 1;
+	animation: fadeit 1s ease-out forwards;
+	animation-iteration-count: 1;
+	-webkit-animation: fadeit 1s;
+	-webkit-animation-iteration-count: 1;
+}
+
+@keyframes fadeit {
+	from { top:46%; filter: alpha(opacity=0); opacity: 0; }
+	to { top:50%; filter: alpha(opacity=100); opacity: 1; }
+}
+
+@-webkit-keyframes fadeit
+{
+	from { top:46%; filter: alpha(opacity=0); opacity: 0; }
+	to { top:50%; filter: alpha(opacity=100); opacity: 1; }
+}
+
+/* Text ticker */
+.text-ticker {
+	width: 100%;
+	height: 50px;
+	margin: 0 auto;
+	overflow: auto;
+	position: absolute;
+	top: 40%;
+}
+
+.text-ticker ul {
+	-webkit-animation: ticker 5s cubic-bezier(1, 0, .5, 0) infinite;
+	   -moz-animation: ticker 5s cubic-bezier(1, 0, .5, 0) infinite;
+		-ms-animation: ticker 5s cubic-bezier(1, 0, .5, 0) infinite;
+			animation: ticker 5s cubic-bezier(1, 0, .5, 0) infinite;
+}
+
+/* Uncomment this if you want to pause the text on hover 
+.text-ticker ul:hover {
+	-webkit-animation-play-state: paused;
+	   -moz-animation-play-state: paused;
+		-ms-animation-play-state: paused;
+			animation-play-state: paused;
+}*/
+
+.text-ticker li {
+	font-weight: 700;
+	color: #ffffff;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	line-height: 50px;
+}
+
+@-webkit-keyframes ticker {
+	0% {margin-top: 0;}
+	20% {margin-top: -50px;}
+	40% {margin-top: -100px;}
+	60% {margin-top: -150px;}
+	80% {margin-top: -200px;}
+	100% {margin-top: 0;}
+}
+
+@-moz-keyframes ticker {
+	0% {margin-top: 0;}
+	20% {margin-top: -50px;}
+	40% {margin-top: -100px;}
+	60% {margin-top: -150px;}
+	80% {margin-top: -200px;}
+	100% {margin-top: 0;}
+}
+
+@-ms-keyframes ticker {
+	0% {margin-top: 0;}
+	20% {margin-top: -50px;}
+	40% {margin-top: -100px;}
+	60% {margin-top: -150px;}
+	80% {margin-top: -200px;}
+	100% {margin-top: 0;}
+}
+
+@keyframes ticker {
+	0% {margin-top: 0;}
+	20% {margin-top: -50px;}
+	40% {margin-top: -100px;}
+	60% {margin-top: -150px;}
+	80% {margin-top: -200px;}
+	100% {margin-top: 0;}
+}
+
+/* Smooth hovers */
+a,
+a:hover,
+i,
+i:hover,
+a img,
+a img:hover,
+input[type="button"],
+input[type="submit"],
+button {
+	-webkit-transition: all .1s ease-in-out;
+	   -moz-transition: all .1s ease-in-out;
+		-ms-transition: all .1s ease-in-out;
+		 -o-transition: all .1s ease-in-out;
+			transition: all .1s ease-in-out;
+}
+
+a i,
+a i:hover {
+	-webkit-transition: none;
+	   -moz-transition: none;
+		-ms-transition: none;
+		 -o-transition: none;
+			transition: none;
+}
+
+/* Pace loading bar */
+.business .pace .pace-progress {
+	background: #f85c37;
+	position: fixed;
+	z-index: 2000;
+	top: 0;
+	left: 0;
+	height: 3px;
+
+	-webkit-transition: width 1s;
+	-moz-transition: width 1s;
+	-o-transition: width 1s;
+	transition: width 1s;
+}
+
+.personal .pace .pace-progress {
+	background: #3CAEC3;
+	position: fixed;
+	z-index: 2000;
+	top: 0;
+	left: 0;
+	height: 3px;
+
+	-webkit-transition: width 1s;
+	-moz-transition: width 1s;
+	-o-transition: width 1s;
+	transition: width 1s;
+}
+
+.pace-inactive {
+	display: none;
+}
+
+/* SoundCloud iframe popup */
+.soundcloud-popup .mfp-iframe {
+	height: 182px;
+}
+
+
+/* ==================== 2.1 Slides ==================== */
+
+/* Slides css */
+#slides {
+	position: relative;
+	overflow: auto;
+	min-width: 1200px;
+}
+
+#slides .slides-container {
+	overflow: auto;
+	min-width: 1200px;
+	/*display: none;*/
+	margin: 0;
+}
+
+#slides .scrollable {
+	*zoom: 1;
+	position: relative;
+	top: 0;
+	left: 0;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	height: 100%;
+}
+
+#slides .scrollable:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* Slides navigation arrows */
+.slides-navigation {
+	margin: 0 auto;
+	position: absolute;
+	z-index: 21;
+	width: 100%;
+}
+
+.slides-navigation a {
+	position: absolute;
+	font-size: 28px;
+	line-height: 28px;
+	bottom: 21px;
+	color: #ffffff;
+	zoom: 1;
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+}
+
+.slides-navigation a.prev {
+	left: 20px;
+}
+
+.slides-navigation a.next {
+	right: 20px;
+}
+
+.slides-navigation a.prev:hover,
+.slides-navigation a.next:hover {
+	filter: alpha(opacity=100);
+	opacity: 1;
+}
+
+/* Slides pagination indicators */
+.slides-pagination {
+	position: absolute;
+	z-index: 20;
+	bottom: 30px;
+	text-align: center;
+	width: 100%;
+}
+
+.slides-pagination a {
+	color: #ffffff;
+	background: #ffffff;
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+	width: 30px;
+	height: 4px;
+	display: -moz-inline-stack;
+	display: inline-block;
+	vertical-align: middle;
+	*vertical-align: auto;
+	zoom: 1;
+	*display: inline;
+	margin: 2px;
+	overflow: hidden;
+	text-indent: -100%;
+}
+
+.slides-pagination a:hover,
+.slides-pagination a.current {
+	filter: alpha(opacity=100);
+	opacity: 1;
+}
+
+/* Fullscreen fixed background */
+.fullscreen-image {
+	background-repeat: no-repeat;
+	background-size: inherited;
+	background-attachment: fixed;
+	background-position: center center;
+	width: 100%;
+	height: 100%;
+	min-width: 1200px;
+	overflow: auto;
+}
+
+.fullscreen-image1 {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	background-position: center center;
+	width: 100%;
+	height: 100%;
+	min-width: 1200px;
+	overflow: auto;
+}
+
+.kylin-logo {
+	width: 1000px !important;
+	height: 1000px !important;
+	position: absolute !important;
+}
+
+.kylin-logo2 {
+	position: absolute !important;
+	top:-100px;
+	left:-250px;
+	width: 500px !important;
+	z-index: -1;
+}
+
+
+/* ==================== 2.2 Position ==================== */
+
+.position {
+	background: #ffffff;
+	width: 100%;
+	margin-top: -8vh;
+	padding-top: 8vh;
+}
+
+
+/* ==================== 2.3 Query ==================== */
+
+.query {
+	height: 86vh;
+	min-height: 660px;
+	padding-top: 60px;
+	padding-bottom: 50px;
+	background: #f7f7f7;
+}
+
+.down {
+	display: block;
+	width: 40px;
+	height: 40px;
+	color: #ffffff;
+	background: #3caec3;
+	font-size: 28px;
+	line-height: 38px;
+	position: relative;
+	bottom: 0;
+	margin: auto;
+}
+
+.widerow {
+	width:1090px;
+}
+
+.loading {
+	color:#3caec3;
+}
+
+.btn.btn-tab1 {
+  background-color: #FD9341;
+  color:white;
+}
+
+.btn.btn-tab2 {
+  background-color: #3caec3;
+  color:white;
+}
+
+.btn.btn-tabs:hover,
+.btn.btn-tabs:active,
+.btn.btn-tabs.hover {
+  color: #ffffff;
+			box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+	   -moz-box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+	-webkit-box-shadow: inset 0px 0px 100px rgba(255,255,255,0.2);
+}
+
+.tables {
+	text-align:left;
+	padding-top: 2px;
+}
+
+#blue {
+	color:#3CAEC3;
+}
+
+.tables ul {
+	font-weight:bold;
+}
+
+.tables li {
+	font-weight:normal;
+	text-indent:1em;
+	font-size:14px;
+}
+
+.tables li a{
+	color:#5c5c5c;
+    cursor: pointer;
+    transition: padding-left 250ms ease-out;
+    /* trans pattern:  property duration timingMethod delay */
+}
+
+.tables li a:hover {
+	color:#3CAEC3;
+    padding-left: 20px;
+}
+
+.tables ul span a{
+	color:#5c5c5c;
+    cursor: pointer;
+    transition: padding-left 250ms ease-out;
+    /* trans pattern:  property duration timingMethod delay */
+}
+
+.tables ul span a:hover {
+	color:#3CAEC3;
+    padding-left: 20px;
+}
+
+.query h5 {
+	text-align:left;
+	text-transform:none;
+	color:#3CAEC3;
+}
+
+
+/* ==================== 2.4 Data Model ==================== */
+
+.data-model {
+	height: 95vh;
+	min-height: 700px;
+	color: #ffffff;
+	background: #f85c37;
+	width: 100%;
+	padding-top: 60px;
+	padding-bottom: 120px;
+}
+
+.data-model .title hr {
+	border: 1px solid #ffffff;
+}
+
+.data-model h1,
+.data-model h2,
+.data-model h3,
+.data-model h4,
+.data-model h5,
+.data-model h6,
+.data-model p {
+	color: #ffffff;
+}
+
+.data-model h3 {
+	margin-top: 0;
+}
+
+.data-model p {
+	font-size: 13px;
+	margin-bottom: 0;
+}
+
+.schema {
+	padding-top: 58px;
+	padding-left: 50px;
+	text-align:left;
+}
+
+.schema h3 {
+	text-align:left;
+	padding-bottom:30px;
+	text-transform: none;
+}
+
+.schema h3 normal{
+	font-weight:normal;
+	text-align:left;
+}
+
+.schema h6 normal{
+	font-weight:normal;
+	text-align:left;
+	text-transform: none;
+}
+
+.schema a {
+	color:#ffffff;
+	font-style:italic;
+}
+
+
+/* ==================== 2.5 Position ==================== */
+
+.position2 {
+	width: 100%;
+	margin-top: -6vh;
+	padding-top: 6vh;
+}
+
+
+/* ==================== 2.6 Cube Name ==================== */
+
+.cube-name {
+	height: 15vh;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	background: #ffffff;
+}
+
+
+/* ==================== 2.7 Cube Design ==================== */
+
+.cube-design {
+	height: 79vh;
+	min-height: 600px;
+	padding-top: 30px;
+	padding-bottom: 60px;
+	background: #f7f7f7;
+	font-family: Helvetica;
+	font-weight: 100;
+}
+
+.cube-design .button-large {
+	font-family: 'Raleway', Helvetica, Arial, sans-serif;
+}
+
+.dimensions {
+	color: #FD9341 !important;
+	font-size: 18px !important;
+	text-align:left;
+	padding-left:20px;
+}
+
+.measures {
+	color: #3caec3 !important;
+	font-size: 18px !important;
+	text-align:left;
+	padding-left:20px;
+}
+
+
+/* ==================== 2.8 Workflow ==================== */
+
+.workflow {
+	height: 80vh;
+	min-height: 660px;
+	color: #ffffff;
+	background: #f85c37;
+	width: 100%;
+	padding-top: 20px;
+}
+
+.workflow .title hr {
+	border: 1px solid #ffffff;
+}
+
+.workflow h1,
+.workflow h2,
+.workflow h3,
+.workflow h4,
+.workflow h5,
+.workflow h6,
+.workflow p {
+	color: #ffffff;
+}
+
+.workflow h3 {
+	margin-top: 0;
+}
+
+.workflow p {
+	font-size: 13px;
+	margin-bottom: 0;
+}
+
+i.process-icon {
+	display: inline-block;
+	vertical-align: middle; 
+	text-align: center;
+	width: 140px;
+	height: 140px;
+	font-size: 56px;
+	line-height: 136px;
+	margin-top: 35px;
+	margin-bottom: 15px;
+	color: #ffffff;
+	border: 2px solid #ffffff;
+	border-radius: 50%;
+}
+
+i.process-icon:hover {
+	font-size: 70px;
+}
+
+.work-section-grid {
+	margin-top:4em;
+	position:relative;
+}
+
+span.arrow1 {
+	position: absolute;
+	top: -35px;
+	right: -64px;
+}
+span.arrow2 {
+	position: absolute;
+	top: 135px;
+	right: -64px;
+}
+span.arrow3 {
+	position: absolute;
+	top: 95px;
+	right: -64px;
+}
+
+span.arrow4 {
+	position: absolute;
+	top: 95px;
+	left: -64px;
+}
+
+.step {
+	font-size: 16px !important;
+}
+/* ==================== 2.9 End ==================== */
+
+.end {
+	height: 20vh;
+	min-height: 150px;
+	color: #ffffff;
+	background: #f85c37;
+	width: 100%;
+	padding-top: 60px;
+	padding-bottom: 30px;
+}
+
+.end h1,
+.end h2,
+.end h3,
+.end h4,
+.end h5,
+.end h6 {
+	color: #ffffff;
+}
+
+.end p,
+.end .button,
+.end .button-large {
+	margin-bottom: 0;
+}
+
+
+/* ==================== 3.1 Modernizr-Assisted Fixes ==================== */
+
+html.touch .fullscreen-image,
+html.touch .header,
+html.touch .header-inherited {
+	background-attachment: scroll;
+}
