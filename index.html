@@ -47,6 +47,8 @@
 	<link rel="stylesheet" href="css/box.css">
 	<link rel="stylesheet" href="css/table.css">
 	<link rel="stylesheet" href="css/ng-grid.css">
+	<link href="css/jquery-ui.css" rel="stylesheet">
+
 	
 	<link rel="shortcut icon" href="images/favicon/favicon.ico">
 </head>
@@ -73,24 +75,11 @@
 		<!-- Query -->
 		<section id="query" class="query">
 			<div class="row widerow wow bounceInUp" data-wow-delay="0.3s">
-				<div class='col-xs-3 tables'>
+				<div class='col-xs-3 tables' ng-controller="tableCtrl">
 					<h3 id="blue">Tables</h3>
-					<ul><span><a onClick="inputTab()">KYLIN_SAMPLE_AIRLINE</a></span>
-						<li><a onClick="inputTab()">FLIGHT_DATE (date)</a></li>
-						<li><a onClick="inputTab()">ORIGIN_AIRPPORT_ID (varchar)</a></li>
-						<li><a onClick="inputTab()">DEST_AIRPORT_ID (varchar)</a></li>
-						<li><a onClick="inputTab()">DEPARTURE_DELAY (decimal)</a></li>
-						<li><a onClick="inputTab()">ARRIVAL_DELAY (decimal)</a></li>
-					</ul>
-					<ul><span><a onClick="inputTab()">KYLIN_SAMPLE_DEST</a></span>
-						<li><a onClick="inputTab()">DEST (varchar)</a></li>
-						<li><a onClick="inputTab()">DEST_CITY (varchar)</a></li>
-						<li><a onClick="inputTab()">DEST_AIRPORT_ID (varchar)</a></li>
-					</ul>
-					<ul><span><a onClick="inputTab()">KYLIN_SAMPLE_ORIGIN</a></span>
-						<li><a onClick="inputTab()">ORIGIN (varchar)</a></li>
-						<li><a onClick="inputTab()">ORIGIN_CITY (varchar)</a></li>
-						<li><a onClick="inputTab()">ORIGIN_AIRPORT_ID (varchar)</a></li>
+					<ul ng-repeat="table in tables">
+						<span><a onClick="inputTab()">{{table.table_NAME}}</a></span>
+						<li ng-repeat="column in table.columns"><a onClick="inputTab()">{{column.column_NAME}} {{!!(column.type_NAME)?'(' + trimType(column.type_NAME) + ')' : ''}}</a></li>
 					</ul>
 				</div>
 				<div class='box col-xs-9' >
@@ -168,7 +157,8 @@
 		</section>
 
 		<!-- Cube design -->
-		<section id="cube-design" class="cube-design">	
+		<section id="cube-design" class="cube-design tip1" ng-controller="cubeCtrl">
+			<div ng-repeat="cube in cubes">
 			<div class="row fadeInLeftBig wow">
 				<h1 class="dimensions">Dimensions</h1>
 				<br />
@@ -177,100 +167,29 @@
 						<tr>
 							<td>Name</td>
 							<td>Table Name</td>
-							<td>Data Type</td>
 							<td>Type</td>
+							<td>Detail</td>
 						</tr>
-						<tr class="bubbleInfo">
-							<td>DEFAULT.KYLIN_SAMPLE_AIRLINE.FLIGHT_DATE</td>
-							<td>DEFAULT.KYLIN_SAMPLE_AIRLINE</td>
-							<td>date</td>
+						<tr ng-repeat="dimension in cube.dimensions">
+							<td>{{dimension.name}}</td>
+							<td>{{dimension.table}}</td>
 							<td>
-								normal <i class="fa fa-fw fa-question trigger"></i>
-								<table id="pop1" class="popup">
-									<tbody>
-										<tr>
-											<td id="topleft" class="corner"></td>
-											<td class="top"></td>
-											<td id="topright" class="corner"></td>
-										</tr>
-										<tr>
-											<td class="left"></td>
-											<td>
-												<div class="popup-contents">
-													Colume: "FLIGHT_DATE"
-												</div>
-											</td>
-											<td class="right"></td>
-										</tr>
-										<tr>
-											<td class="corner" id="bottomleft"></td>
-											<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-											<td id="bottomright" class="corner"></td>
-										</tr>
-									</tbody>
-								</table>
+								<span ng-repeat="t in getDimType(dimension)">{{t}} <i class="fa fa-fw fa-question" title="{{t}}"></i></span>
 							</td>
-						</tr>
-						<tr class="bubbleInfo">
-							<td>DEFAULT.KYLIN_SAMPLE_ORIGIN_DERIVED</td>
-							<td>DEFAULT.KYLIN_SAMPLE_ORIGIN</td>
-							<td>string</td>
 							<td>
-								derived <i class="fa fa-fw fa-question trigger"></i>
-								<table id="pop2" class="popup">
-									<tbody>
-										<tr>
-											<td id="topleft" class="corner"></td>
-											<td class="top"></td>
-											<td id="topright" class="corner"></td>
-										</tr>
-										<tr>
-											<td class="left"></td>
-											<td>
-												<div class="popup-contents">
-													Derived from colume "ORIGIN", "ORIGIN_CITY"
-												</div>
-											</td>
-											<td class="right"></td>
-										</tr>
-										<tr>
-											<td class="corner" id="bottomleft"></td>
-											<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-											<td id="bottomright" class="corner"></td>
-										</tr>
-									</tbody>
-								</table>
-							</td>
-						</tr>
-						<tr class="bubbleInfo">
-							<td>DEFAULT.KYLIN_SAMPLE_DEST_DERIVED</td>
-							<td>DEFAULT.KYLIN_SAMPLE_DEST</td>
-							<td>string</td>
-							<td>
-								derived <i class="fa fa-fw fa-question trigger"></i>
-								<table id="pop3" class="popup">
-									<tbody>
-										<tr>
-											<td id="topleft" class="corner"></td>
-											<td class="top"></td>
-											<td id="topright" class="corner"></td>
-										</tr>
-										<tr>
-											<td class="left"></td>
-											<td>
-												<div class="popup-contents">
-													Derived from colume "DEST", "DEST_CITY"
-												</div>
-											</td>
-											<td class="right"></td>
-										</tr>
-										<tr>
-											<td class="corner" id="bottomleft"></td>
-											<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-											<td id="bottomright" class="corner"></td>
-										</tr>
-									</tbody>
-								</table>
+								<div ng-repeat="t in getDimType(dimension)">
+									<div ng-switch="t">
+										<dl ng-switch-when="hierarchy">
+											Hierarchy {{dimension.column}}
+										</dl>
+										<dl ng-switch-when="derived">
+											Derived {{dimension.derived}}
+										</dl>
+										<dl class="dl-horizontal" ng-switch-when="normal">
+											Column {{dimension.column}}
+										</dl>
+									</div>
+							</div>
 							</td>
 						</tr>
 					</table>
@@ -288,29 +207,16 @@
 							<td>Param Value</td>
 							<td>Return Type</td>
 						</tr>
-						<tr>
-							<td>_COUNT_</td>
-							<td>COUNT</td>
-							<td>constant</td>
-							<td>1</td>
-							<td>bigint</td>
-						</tr>
-						<tr>
-							<td>SUM_DEP_DELAY</td>
-							<td>SUM</td>
-							<td>column</td>
-							<td>DEPARTURE_DELAY</td>
-							<td>decimal(6,2)</td>
-						</tr>
-						<tr>
-							<td>SUM_ARR_DELAY</td>
-							<td>SUM</td>
-							<td>column</td>
-							<td>ARRIVAL_DELAY</td>
-							<td>decimal(6,2)</td>
+						<tr ng-repeat="measure in cube.measures">
+							<td>{{measure.name}}</td>
+							<td>{{measure.function.expression}}</td>
+							<td>{{measure.function.parameter.type}}</td>
+							<td>{{measure.function.parameter.value}}</td>
+							<td>{{measure.function.returntype}}</td>
 						</tr>
 					</table>
 				</div>
+			</div>
 			</div>
 			<br />
 			<br />
@@ -319,7 +225,7 @@
 		</section>
 
 		<!-- Workflow -->
-		<section id="workflow" class="workflow" ng-controller="stepCtrl">
+		<section id="workflow" class="workflow tip2" ng-controller="stepCtrl">
 			<!-- Title -->
 			<div class="row">
 				<div class="ten columns offset-by-one title wow bounceIn">
@@ -328,440 +234,109 @@
 				</div>
 			</div>
 
-			<!-- workflow steps -->
-			<div class="row widerow">
-				<!-- workflow step -->
+			<!-- steps first row -->
+			<div class="row widerow wow fadeInUp">
+				<!-- start step -->
 				<div class=" work-section-grid desktop-two-point-four columns">
-					<div class=" wow fadeInUp" data-wow-delay="0.4s">
-						<h3>{{steps[0].name}}</h3>
-						<p class="step">Job Name: {{steps[0].jobname}}</p>
+					<div>
+						<h3>start</h3>
+						<p class="step">Job Name: {{jobName}}</p>
+						<p class="step" ng-if="(num + 1) % 5 == 0">Duration: {{(duration/60 | number:2) + ' mins'}}</br>MapReduce Waiting: {{(mrWaiting/60 | number:2) + ' mins'}}</p>
 						<span class="arrow1"><img src="images/arrow1.png" alt="" /></span>
 					</div>
 				</div>
 
-				<!-- workflow step -->
-				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
-					<div class="trigger wow fadeInUp" data-wow-delay="0.6s">
-						<h3>{{steps[1].name}}</h3>
-						<p class="step">{{steps[1].stepname}}</br>Data Size: {{steps[1].datasize}}</br>Duration: {{steps[1].duration}}</p>
+				<!-- steps 1-3 -->
+				<div ng-repeat="step in steps" ng-if="$index < 3" class="work-section-grid desktop-two-point-four columns" title="{{pops[step.order].popup}}">
+					<div class="wow fadeInUp" data-wow-delay="{{wowdelay(step.order)}}s">
+						<h3>step {{step.order+1}}</h3>
+						<p class="step">{{step.name}}</p><p class="step" ng-if="step.info.hdfs_bytes_written">Data Size: {{dataSize(step.info.hdfs_bytes_written)}}</p><p class="step">Duration: {{step.exec_start_time != 0 ?  (step.exec_end_time != 0 ? ((step.exec_end_time - step.exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
 						<span class="arrow1"><img src="images/arrow1.png" alt="" /></span>
 					</div>
-					<table id="dpop" class="popup">
-						<tbody>
-							<tr>
-								<td id="topleft" class="corner"></td>
-								<td class="top"></td>
-								<td id="topright" class="corner"></td>
-							</tr>
-							<tr>
-								<td class="left"></td>
-								<td>
-									<div class="popup-contents">
-										{{steps[1].popup}}
-									</div>
-								</td>
-								<td class="right"></td>
-							</tr>
-							<tr>
-								<td class="corner" id="bottomleft"></td>
-								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-								<td id="bottomright" class="corner"></td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
 
-				<!-- workflow step -->
-				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
-					<div class="trigger wow fadeInUp" data-wow-delay="0.8s">
-						<h3>{{steps[2].name}}</h3>
-						<p class="step">{{steps[2].stepname}}</br>Data Size: {{steps[2].datasize}}</br>Duration: {{steps[2].duration}}</p>
-						<span class="arrow1"><img src="images/arrow1.png" alt="" /></span>
+				<!-- step end -->
+				<div ng-if="num < 4" class=" work-section-grid desktop-two-point-four columns">
+					<div class=" wow fadeInUp" data-wow-delay="{{wowdelay(num)}}s">
+						<h3>end</h3>
+						<p class="step">Duration: {{(duration/60 | number:2) + ' mins'}}</br>MapReduce Waiting: {{(mrWaiting/60 | number:2) + ' mins'}}</p>
 					</div>
-					<table id="dpop" class="popup">
-						<tbody>
-							<tr>
-								<td id="topleft" class="corner"></td>
-								<td class="top"></td>
-								<td id="topright" class="corner"></td>
-							</tr>
-							<tr>
-								<td class="left"></td>
-								<td>
-									<div class="popup-contents">
-										{{steps[2].popup}}
-									</div>
-								</td>
-								<td class="right"></td>
-							</tr>
-							<tr>
-								<td class="corner" id="bottomleft"></td>
-								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-								<td id="bottomright" class="corner"></td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
 
-				<!-- workflow step -->
-				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
-					<div class="trigger wow fadeInUp" data-wow-delay="0.8s">
-						<h3>{{steps[3].name}}</h3>
-						<p class="step">{{steps[3].stepname}}</br>Duration: {{steps[3].duration}}</p>
-						<span class="arrow1"><img src="images/arrow1.png" alt="" /></span>
+				<!-- step 4 -->
+				<div ng-if="num >= 4" class="work-section-grid desktop-two-point-four columns" title="{{pops[3].popup}}">
+					<div class="wow fadeInUp" data-wow-delay="{{wowdelay(steps[3].order)}}s">
+						<h3>step 4</h3>
+						<p class="step">{{steps[3].name}}</p><p class="step" ng-if="steps[3].info.hdfs_bytes_written">Data Size: {{dataSize(steps[3].info.hdfs_bytes_written)}}</p><p class="step">Duration: {{steps[3].exec_start_time != 0 ?  (steps[3].exec_end_time != 0 ? ((steps[3].exec_end_time - steps[3].exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
+						<span class="arrow3" ng-if="num != 4"><img src="images/arrow3.png" alt="" /></span>
 					</div>
-					<table id="dpop" class="popup">
-						<tbody>
-							<tr>
-								<td id="topleft" class="corner"></td>
-								<td class="top"></td>
-								<td id="topright" class="corner"></td>
-							</tr>
-							<tr>
-								<td class="left"></td>
-								<td>
-									<div class="popup-contents">
-										{{steps[3].popup}}
-									</div>
-								</td>
-								<td class="right"></td>
-							</tr>
-							<tr>
-								<td class="corner" id="bottomleft"></td>
-								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-								<td id="bottomright" class="corner"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				<!-- workflow step -->
-				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
-					<div class="trigger wow fadeInUp" data-wow-delay="1.0s">
-						<h3>{{steps[4].name}}</h3>
-						<p class="step">{{steps[4].stepname}}</br>Data Size: {{steps[4].datasize}}</br>Duration: {{steps[4].duration}}</p>
-						<span class="arrow3"><img src="images/arrow3.png" alt="" /></span>
-					</div>
-					<table id="dpop" class="popup">
-						<tbody>
-							<tr>
-								<td id="topleft" class="corner"></td>
-								<td class="top"></td>
-								<td id="topright" class="corner"></td>
-							</tr>
-							<tr>
-								<td class="left"></td>
-								<td>
-									<div class="popup-contents">
-										{{steps[4].popup}}
-									</div>
-								</td>
-								<td class="right"></td>
-							</tr>
-							<tr>
-								<td class="corner" id="bottomleft"></td>
-								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-								<td id="bottomright" class="corner"></td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
 			</div>
 
-			<div class="row widerow">
-				<!-- workflow step -->
-				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
-					<div class="trigger wow fadeInUp" data-wow-delay="1.8s">
-						<h3>{{steps[9].name}}</h3>
-						<p class="step">{{steps[9].stepname}}</br>Duration: {{steps[9].duration}}</p>
-						<span class="arrow4"><img src="images/arrow4.png" alt="" /></span>
+			<div class="wow fadeInUp">
+			<div ng-repeat="step in steps" ng-if="($index + 1) % 5 == 0 && ($index + 1) % 2 == 1">
+			<!-- steps reverse rows -->
+			<div class="row widerow" >
+				<!-- step like 9 -->
+				<div ng-if="num >= $parent.$index + 5" class="work-section-grid desktop-two-point-four columns" title="{{pops[$index + 4].popup}}">
+					<div class="wow fadeInUp" data-wow-delay="{{wowdelay($parent.$index + 4)}}s">
+						<h3>step {{$parent.$index + 5}}</h3>
+						<p class="step">{{steps[$parent.$index + 4].name}}</p><p class="step" ng-if="steps[$parent.$index + 4].info.hdfs_bytes_written">Data Size: {{dataSize(steps[$parent.$index + 4].info.hdfs_bytes_written)}}</p><p class="step">Duration: {{steps[$parent.$index + 4].exec_start_time != 0 ?  (steps[$parent.$index + 4].exec_end_time != 0 ? ((steps[$parent.$index + 4].exec_end_time - steps[$parent.$index + 4].exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
+						<span class="arrow4" ng-if="($parent.$index + 1) / 5 + 1 != rownum"><img src="images/arrow4.png" alt="" /></span>
 					</div>
-					<table id="dpop" class="popup">
-						<tbody>
-							<tr>
-								<td id="topleft" class="corner"></td>
-								<td class="top"></td>
-								<td id="topright" class="corner"></td>
-							</tr>
-							<tr>
-								<td class="left"></td>
-								<td>
-									<div class="popup-contents">
-										{{steps[9].popup}}
-									</div>
-								</td>
-								<td class="right"></td>
-							</tr>
-							<tr>
-								<td class="corner" id="bottomleft"></td>
-								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-								<td id="bottomright" class="corner"></td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
 
-				<!-- workflow step -->
-				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
-					<div class="trigger wow fadeInUp" data-wow-delay="1.6s">
-						<h3>{{steps[8].name}}</h3>
-						<p class="step">{{steps[8].stepname}}</br>Data Size: {{steps[8].datasize}}</br>Duration: {{steps[8].duration}}</p>
-					</div>
-					<table id="dpop" class="popup">
-						<tbody>
-							<tr>
-								<td id="topleft" class="corner"></td>
-								<td class="top"></td>
-								<td id="topright" class="corner"></td>
-							</tr>
-							<tr>
-								<td class="left"></td>
-								<td>
-									<div class="popup-contents">
-										{{steps[8].popup}}
-									</div>
-								</td>
-								<td class="right"></td>
-							</tr>
-							<tr>
-								<td class="corner" id="bottomleft"></td>
-								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-								<td id="bottomright" class="corner"></td>
-							</tr>
-						</tbody>
-					</table>
+				<!-- steps vacant -->
+				<div ng-repeat="step in steps" ng-if="$index < vacantnum && ($parent.$index + 1) / 5 + 1 == rownum" class="work-section-grid desktop-two-point-four columns">
 				</div>
 
-				<!-- workflow step -->
-				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
-					<div class="trigger wow fadeInUp" data-wow-delay="1.4s">
-						<h3>{{steps[7].name}}</h3>
-						<p class="step">{{steps[7].stepname}}</br>Data Size: {{steps[7].datasize}}</br>Duration: {{steps[7].duration}}</p>
+				<!-- step end -->
+				<div ng-if="num > $parent.$index && num < $parent.$index + 5" class=" work-section-grid desktop-two-point-four columns">
+					<div class=" wow fadeInUp" data-wow-delay="{{wowdelay(num)}}s">
+						<h3>end</h3>
+						<p class="step">Duration: {{(duration/60 | number:2) + ' mins'}}</br>MapReduce Waiting: {{(mrWaiting/60 | number:2) + ' mins'}}</p>
 					</div>
-					<table id="dpop" class="popup">
-						<tbody>
-							<tr>
-								<td id="topleft" class="corner"></td>
-								<td class="top"></td>
-								<td id="topright" class="corner"></td>
-							</tr>
-							<tr>
-								<td class="left"></td>
-								<td>
-									<div class="popup-contents">
-										{{steps[7].popup}}
-									</div>
-								</td>
-								<td class="right"></td>
-							</tr>
-							<tr>
-								<td class="corner" id="bottomleft"></td>
-								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-								<td id="bottomright" class="corner"></td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
 
-				<!-- workflow step -->
-				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
-					<div class="trigger wow fadeInUp" data-wow-delay="1.2s">
-						<h3>{{steps[6].name}}</h3>
-						<p class="step">{{steps[6].stepname}}</br>Data Size: {{steps[6].datasize}}</br>Duration: {{steps[6].duration}}</p>
+				<!-- steps like 5-8 -->
+				<div ng-repeat="step in steps | orderBy:'-order'" ng-if="$index <= num - $parent.$index - 1 && $index > num - $parent.$index - 5" class="work-section-grid desktop-two-point-four columns" title="{{pops[step.order].popup}}">
+					<div class="wow fadeInUp" data-wow-delay="{{wowdelay(step.order)}}s">
+						<h3>step {{step.order + 1}}</h3>
+						<p class="step">{{step.name}}</p><p class="step" ng-if="step.info.hdfs_bytes_written">Data Size: {{dataSize(step.info.hdfs_bytes_written)}}</p><p class="step">Duration: {{step.exec_start_time != 0 ?  (step.exec_end_time != 0 ? ((step.exec_end_time - step.exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
+						<span ng-if="($parent.$parent.$index + 1) / 5 + 1 == rownum" class="arrow5"><img src="images/arrow5.png" alt="" /></span>
 					</div>
-					<table id="dpop" class="popup">
-						<tbody>
-							<tr>
-								<td id="topleft" class="corner"></td>
-								<td class="top"></td>
-								<td id="topright" class="corner"></td>
-							</tr>
-							<tr>
-								<td class="left"></td>
-								<td>
-									<div class="popup-contents">
-										{{steps[6].popup}}
-									</div>
-								</td>
-								<td class="right"></td>
-							</tr>
-							<tr>
-								<td class="corner" id="bottomleft"></td>
-								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-								<td id="bottomright" class="corner"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				<!-- workflow step -->
-				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
-					<div class="trigger wow fadeInUp" data-wow-delay="1.2s">
-						<h3>{{steps[5].name}}</h3>
-						<p class="step">{{steps[5].stepname}}</br>Data Size: {{steps[5].datasize}}</br>Duration: {{steps[5].duration}}</p>
-					</div>
-					<table id="dpop" class="popup">
-						<tbody>
-							<tr>
-								<td id="topleft" class="corner"></td>
-								<td class="top"></td>
-								<td id="topright" class="corner"></td>
-							</tr>
-							<tr>
-								<td class="left"></td>
-								<td>
-									<div class="popup-contents">
-										{{steps[5].popup}}
-									</div>
-								</td>
-								<td class="right"></td>
-							</tr>
-							<tr>
-								<td class="corner" id="bottomleft"></td>
-								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-								<td id="bottomright" class="corner"></td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
 			</div>
 
-			<div class="row widerow">
-				<!-- workflow step -->
-				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
-					<div class="trigger wow fadeInUp" data-wow-delay="2.0s">
-						<h3>{{steps[10].name}}</h3>
-						<p class="step">{{steps[10].stepname}}</br>Data Size: {{steps[10].datasize}}</br>Duration: {{steps[10].duration}}</p>
-						<span class="arrow2"><img src="images/arrow2.png" alt="" /></span>
+			<!-- steps rows -->
+			<div class="row widerow" >
+				<!-- steps like 10-13 -->
+				<div ng-repeat="step in steps" ng-if="$index >= $parent.$index + 5 && $index < $parent.$index + 9" class="work-section-grid desktop-two-point-four columns" title="{{pops[step.order].popup}}">
+					<div class="wow fadeInUp" data-wow-delay="{{wowdelay(step.order)}}s">
+						<h3>step {{step.order + 1}}</h3>
+						<p class="step">{{step.name}}</p><p class="step" ng-if="step.info.hdfs_bytes_written">Data Size: {{dataSize(step.info.hdfs_bytes_written)}}</p><p class="step">Duration: {{step.exec_start_time != 0 ?  (step.exec_end_time != 0 ? ((step.exec_end_time - step.exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
+						<span ng-if="($parent.$parent.$index + 6) / 5 + 1 == rownum" class="arrow2"><img src="images/arrow2.png" alt="" /></span>
 					</div>
-					<table id="dpop" class="popup">
-						<tbody>
-							<tr>
-								<td id="topleft" class="corner"></td>
-								<td class="top"></td>
-								<td id="topright" class="corner"></td>
-							</tr>
-							<tr>
-								<td class="left"></td>
-								<td>
-									<div class="popup-contents">
-										{{steps[10].popup}}
-									</div>
-								</td>
-								<td class="right"></td>
-							</tr>
-							<tr>
-								<td class="corner" id="bottomleft"></td>
-								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-								<td id="bottomright" class="corner"></td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
 
-				<!-- workflow step -->
-				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
-					<div class="trigger wow fadeInUp" data-wow-delay="2.2s">
-						<h3>{{steps[11].name}}</h3>
-						<p class="step">{{steps[11].stepname}}</br>Duration: {{steps[11].duration}}</p>
-						<span class="arrow2"><img src="images/arrow2.png" alt="" /></span>
+				<!-- step end -->
+				<div ng-if="num > $parent.$index + 5 && num < $parent.$index + 10" class=" work-section-grid desktop-two-point-four columns">
+					<div class=" wow fadeInUp" data-wow-delay="{{wowdelay(num)}}s">
+						<h3>end</h3>
+						<p class="step">Duration: {{(duration/60 | number:2) + ' mins'}}</br>MapReduce Waiting: {{(mrWaiting/60 | number:2) + ' mins'}}</p>
 					</div>
-					<table id="dpop" class="popup">
-						<tbody>
-							<tr>
-								<td id="topleft" class="corner"></td>
-								<td class="top"></td>
-								<td id="topright" class="corner"></td>
-							</tr>
-							<tr>
-								<td class="left"></td>
-								<td>
-									<div class="popup-contents">
-										{{steps[11].popup}}
-									</div>
-								</td>
-								<td class="right"></td>
-							</tr>
-							<tr>
-								<td class="corner" id="bottomleft"></td>
-								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-								<td id="bottomright" class="corner"></td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
 
-				<!-- workflow step -->
-				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
-					<div class="trigger wow fadeInUp" data-wow-delay="2.4s">
-						<h3>{{steps[12].name}}</h3>
-						<p class="step">{{steps[12].stepname}}</br>Duration: {{steps[12].duration}}</p>
-						<span class="arrow2"><img src="images/arrow2.png" alt="" /></span>
-					</div>
-					<table id="dpop" class="popup">
-						<tbody>
-							<tr>
-								<td id="topleft" class="corner"></td>
-								<td class="top"></td>
-								<td id="topright" class="corner"></td>
-							</tr>
-							<tr>
-								<td class="left"></td>
-								<td>
-									<div class="popup-contents">
-										{{steps[12].popup}}
-									</div>
-								</td>
-								<td class="right"></td>
-							</tr>
-							<tr>
-								<td class="corner" id="bottomleft"></td>
-								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-								<td id="bottomright" class="corner"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				<!-- workflow step -->
-				<div class="bubbleInfo work-section-grid desktop-two-point-four columns">
-					<div class="trigger wow fadeInUp" data-wow-delay="2.6s">
-						<h3>{{steps[13].name}}</h3>
-						<p class="step">{{steps[13].stepname}}</br>Duration: {{steps[13].duration}}</p>
-						<span class="arrow2"><img src="images/arrow2.png" alt="" /></span>
-					</div>
-					<table id="dpop" class="popup">
-						<tbody>
-							<tr>
-								<td id="topleft" class="corner"></td>
-								<td class="top"></td>
-								<td id="topright" class="corner"></td>
-							</tr>
-							<tr>
-								<td class="left"></td>
-								<td>
-									<div class="popup-contents">
-										{{steps[13].popup}}
-									</div>
-								</td>
-								<td class="right"></td>
-							</tr>
-							<tr>
-								<td class="corner" id="bottomleft"></td>
-								<td class="bottom"><img width="30" height="29" alt="popup tail" src="images/bubble-tail2.png"/></td>
-								<td id="bottomright" class="corner"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				<!-- workflow step -->
-				<div class=" work-section-grid desktop-two-point-four columns">
-					<div class=" wow fadeInUp" data-wow-delay="2.8s">
-						<h3>{{steps[14].name}}</h3>
-						<p class="step">Duration: {{steps[14].duration}}</br>MapReduce Waiting: {{steps[14].mrwaiting}}</p>
+				<!-- step like 14 -->
+				<div ng-if="num >= $parent.$index + 10" class="work-section-grid desktop-two-point-four columns" title="{{steps[$index+9].popup}}">
+					<div class="wow fadeInUp" data-wow-delay="{{wowdelay($parent.$index + 9)}}s">
+						<h3>steps {{$parent.$index + 10}}</h3>
+						<p class="step">{{steps[$parent.$index + 9].name}}</p><p class="step" ng-if="steps[$parent.$index + 9].info.hdfs_bytes_written">Data Size: {{dataSize(steps[$parent.$index + 9].info.hdfs_bytes_written)}}</p><p class="step">Duration: {{steps[$parent.$index + 9].exec_start_time != 0 ?  (steps[$parent.$index + 9].exec_end_time != 0 ? ((steps[$parent.$index + 9].exec_end_time - steps[$parent.$index + 9].exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
+						<span class="arrow3" ng-if="($parent.$index + 6) / 5 + 1 != rownum"><img src="images/arrow3.png" alt="" /></span>
 					</div>
 				</div>
+			</div>
+			</div>
 			</div>
 		</section>
 
@@ -795,6 +370,23 @@
 		<script src="js/namesController.js"></script>
 		<script src="js/ngLoading.js"></script>
 		<script src="js/tabs.js"></script>
+		<script src="js/jquery-ui.js"></script>
+		<script>
+		$(document).ready(function () {
+			$('.tip1').tooltip({
+				position: {
+					my: "left top",
+					at: "right+10 center"
+				}
+			});
+			$('.tip2').tooltip({
+				position: {
+					my: "bottom",
+					at: "top-15"
+				}
+			});
+		});
+		</script>
 		</div>
 	</body>
 </html>

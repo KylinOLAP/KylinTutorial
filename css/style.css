@@ -1238,6 +1238,12 @@ span.arrow4 {
 	left: -64px;
 }
 
+span.arrow5 {
+	position: absolute;
+	top: 135px;
+	left: -64px;
+}
+
 .step {
 	font-size: 16px !important;
 }

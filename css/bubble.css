@@ -20,7 +20,6 @@
 
 .popup2 {
     position: absolute;
-    display: none;
     z-index: 50;
     border-collapse: collapse;
 }

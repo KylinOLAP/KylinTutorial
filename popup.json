@@ -1,0 +1,56 @@
+{
+"pops": [
+	{
+		"name" : "step 1",
+		"popup" : "info about Create Intermediate Flat Hive Table"
+	},
+	{
+		"name" : "step 2",
+		"popup" : "info about Extract Fact Table Distinct Columns"
+	},
+	{
+		"name" : "step 3",
+		"popup" : "info about Build Dimension Dictionary"
+	},
+	{
+		"name" : "step 4",
+		"popup" : "info about Build Base Cuboid Data"
+	},
+	{
+		"name" : "step 5",
+		"popup" : "info about Build N-Dimension Cuboid Data : 2-Dimension"
+	},
+	{
+		"name" : "step 6",
+		"popup" : "info about Build N-Dimension Cuboid Data : 1-Dimension"
+	},
+	{
+		"name" : "step 7",
+		"popup" : "info about Build N-Dimension Cuboid Data : 0-Dimension"
+	},
+	{
+		"name" : "step 8",
+		"popup" : "info about Calculate HTable Region Splits"
+	},
+	{
+		"name" : "step 9",
+		"popup" : "info about Create HTable"
+	},
+	{
+		"name" : "step 10",
+		"popup" : "info about Convert Cuboid Data to HFile"
+	},
+	{
+		"name" : "step 11",
+		"popup" : "info about Load HFile to HBase Table"
+	},
+	{
+		"name" : "step 12",
+		"popup" : "info about Update Cube Info"
+	},
+	{
+		"name" : "step 13",
+		"popup" : "info about Garbage Collection"
+	}
+]
+}
