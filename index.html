@@ -174,7 +174,7 @@
 							<td>{{dimension.name}}</td>
 							<td>{{dimension.table}}</td>
 							<td>
-								<span ng-repeat="t in getDimType(dimension)">{{t}} <i class="fa fa-fw fa-question" title="{{t}}"></i></span>
+								<span ng-repeat="t in getDimType(dimension)">{{t}}<span ng-switch="t"><i class="fa fa-fw fa-question" ng-switch-when="normal" title="{{normal}}"></i><i class="fa fa-fw fa-question" ng-switch-when="derived" title="{{derived}}"></i><i class="fa fa-fw fa-question" ng-switch-when="hierarchy" title="{{hierarchy}}"></i></span></span>
 							</td>
 							<td>
 								<div ng-repeat="t in getDimType(dimension)">

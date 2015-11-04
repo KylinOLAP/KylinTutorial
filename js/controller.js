@@ -100,6 +100,11 @@ kylinApp.controller('tableCtrl', function($scope, $http) {
 });
 
 kylinApp.controller('cubeCtrl', function($scope, $http) {
+	$http.get("dimtype.json").success(function(response) {
+		$scope.normal = response.normal;
+		$scope.derived = response.derived;
+	});
+
 	var req = {
 		method: 'GET',
 		url: 'http://66.211.189.71/kylin/api/cube_desc/kylin_airline_sample',
