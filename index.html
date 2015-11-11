@@ -48,6 +48,7 @@
 	<link rel="stylesheet" href="css/table.css">
 	<link rel="stylesheet" href="css/ng-grid.css">
 	<link href="css/jquery-ui.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/nv.d3.min.css">
 
 	
 	<link rel="shortcut icon" href="images/favicon/favicon.ico">
@@ -101,9 +102,73 @@
 							<i class="fa fa-spinner fa-spin loadicon"></i>
 							executing
 						</div>
-						<div id="result-grid" style="display:none;">
-							<div><h5>Response time: {{restime/1000 | number: 2}}s</h5></div>
+						<div class="row" style="width:100%;" ng-if="queryFinish">
+							<h5 class="col-xs-4" style="padding-left:3px;">Response time: {{restime/1000 | number: 2}}s</h5>
+							<h5 class="col-xs-6">Result length: {{curQuery.result.results.length}}</h5>
+							<p class="col-xs-2" style="padding-right:0px;"><button class="btn btn-default btn-xs" style="float:right;"
+							ng-click="curQuery.graph.show=!curQuery.graph.show;buildGraphMetadata(curQuery);resetGraph(curQuery);refreshGraphData(curQuery)">
+								<span ng-if="!curQuery.graph.show"><i class="fa fa-bar-chart-o"></i> Visualization</span>
+								<span ng-if="curQuery.graph.show"><i class="fa fa-list-ul"></i> Grid</span>
+							</button></p>
+						</div>
+						<div id="result-grid" ng-if="queryFinish && !curQuery.graph.show">
 							<div class="gridStyle" ng-grid="gridOptions" style="height: 300px; width:auto;"></div>
+						</div>
+						<div ng-if="queryFinish && curQuery.graph.show">
+							<div class="row" style="width:100%;">
+								<label style="float:left; height: 22px; line-height: 22px; padding-left:3px;">Graph Type:</label>
+								<select style="float:left; width: 100px; height: 22px; line-height: 22px; margin-left: 15px;" class="form-control" ng-model="curQuery.graph.type" ng-change="resetGraph(curQuery);refreshGraphData(curQuery)" ng-options="type as type.name for type in chartTypes"></select>
+								
+								<label style="float:left; height: 22px; line-height: 22px; padding-left:35px;">Dimensions:</label>
+								<select style="float:left; width: 150px; height: 22px; line-height: 22px; margin-left: 15px;" class="form-control" ng-model="curQuery.graph.state.dimensions" ng-change="refreshGraphData(curQuery)" ng-options="dimension as dimension.column.label for dimension in curQuery.graph.meta.dimensions | filter: mappingToChartype"><option value="">-- choose --</option></select>
+								
+								<label style="float:left; height: 22px; line-height: 22px; padding-left:35px;">Metrics:</label>
+								<select style="float:left; width: 150px; height: 22px; line-height: 22px; margin-left: 15px;" class="form-control" ng-if="curQuery.graph.type.metrics.multiple" multiple  ng-model="curQuery.graph.state.metrics" ng-options="metrics as metrics.column.label for metrics in curQuery.graph.meta.metrics" ng-change="refreshGraphData(curQuery)"><option value="">-- choose --</option></select>
+								<select style="float:left; width: 150px; height: 22px; line-height: 22px; margin-left: 15px;" class="form-control" ng-if="!curQuery.graph.type.metrics.multiple" ng-model="curQuery.graph.state.metrics" ng-options="metrics as metrics.column.label for metrics in curQuery.graph.meta.metrics" ng-change="refreshGraphData(curQuery)"><option value="">-- choose --</option></select>
+							</div>
+							<div ng-if="curQuery.graph.type.value == 'line'">
+								<nvd3-line-chart
+									height="300"
+									data="curQuery.graph.data"
+									xAxisTickFormat="xAxisTickFormatFunction()"
+									showXAxis="true"
+									showYAxis="true"
+									noData="No Graph"
+									clipVoronoi="true"
+									interactive="true"
+									tooltips="true"
+									color="colorFunction()"
+								>
+									<svg></svg>
+								</nvd3-line-chart>
+							</div>
+							<div ng-if="curQuery.graph.type.value == 'bar'">
+								<nvd3-multi-bar-chart
+								data="curQuery.graph.data"
+								height="300"
+								showXAxis="true"
+								showYAxis="true"
+								noData="No Graph or Excessive number of Dimensions"
+								showLegend="true"
+								interactive="true"
+								tooltips="true"
+								>
+									<svg></svg>
+								</nvd3-multi-bar-chart>
+							</div>
+							<div ng-if="curQuery.graph.type.value == 'pie'">
+								<nvd3-pie-chart
+								data="curQuery.graph.data"
+								height="300"
+								x="xFunction()"
+								y="yFunction()"
+								noData="No Graph"
+								tooltips="true"
+								showLabels="true"
+								>
+									<svg></svg>
+								</nvd3-pie-chart>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -129,13 +194,13 @@
 					</svg>
 				</div-->
 				<div class="col-xs-7 wow rotateInDownLeft">
-					<div id="tree-container"></div>
-					<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+					<div id="tree-container" style="width:640px; height:400px;"></div>
+					<script src="js/d3.min.js"></script>
 
 					<script src="js/tree.js"></script>
 				</div>
 				<div class="col-xs-5 schema wow rotateInDownRight">
-					<h3>Data Model:  <normal>this data model maintains airline data from Jan 1970 to Apr 2014</normal></h3>
+					<h3>Data Model:  <normal>this data model maintains airline data of 2014</normal></h3>
 					<h3>Fact Table:  <normal>table AIRLINE contains information of each flight including time delay</normal></h3>
 					<h3>Lookup Table:  <normal>table ORIGIN and DEST contain detail information of the departure and arrival airport</normal></h3>
 					<h6><normal>Check <a href="http://kylin.incubator.apache.org/docs/gettingstarted/terminology.html">here</a> to learn the related terminology</normal></h6>
@@ -247,7 +312,7 @@
 				</div>
 
 				<!-- steps 1-3 -->
-				<div ng-repeat="step in steps" ng-if="$index < 3" class="work-section-grid desktop-two-point-four columns" title="{{pops[step.order].popup}}">
+				<div ng-repeat="step in steps" ng-if="$index < 3" class="work-section-grid desktop-two-point-four columns" title="{{pops[step.name]}}">
 					<div class="wow fadeInUp" data-wow-delay="{{wowdelay(step.order)}}s">
 						<h3>step {{step.order+1}}</h3>
 						<p class="step">{{step.name}}</p><p class="step" ng-if="step.info.hdfs_bytes_written">Data Size: {{dataSize(step.info.hdfs_bytes_written)}}</p><p class="step">Duration: {{step.exec_start_time != 0 ?  (step.exec_end_time != 0 ? ((step.exec_end_time - step.exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
@@ -264,7 +329,7 @@
 				</div>
 
 				<!-- step 4 -->
-				<div ng-if="num >= 4" class="work-section-grid desktop-two-point-four columns" title="{{pops[3].popup}}">
+				<div ng-if="num >= 4" class="work-section-grid desktop-two-point-four columns" title="{{pops[steps[3].name]}}">
 					<div class="wow fadeInUp" data-wow-delay="{{wowdelay(steps[3].order)}}s">
 						<h3>step 4</h3>
 						<p class="step">{{steps[3].name}}</p><p class="step" ng-if="steps[3].info.hdfs_bytes_written">Data Size: {{dataSize(steps[3].info.hdfs_bytes_written)}}</p><p class="step">Duration: {{steps[3].exec_start_time != 0 ?  (steps[3].exec_end_time != 0 ? ((steps[3].exec_end_time - steps[3].exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
@@ -278,7 +343,7 @@
 			<!-- steps reverse rows -->
 			<div class="row widerow" >
 				<!-- step like 9 -->
-				<div ng-if="num >= $parent.$index + 5" class="work-section-grid desktop-two-point-four columns" title="{{pops[$index + 4].popup}}">
+				<div ng-if="num >= $parent.$index + 5" class="work-section-grid desktop-two-point-four columns" title="{{pops[steps[$index + 4].name]}}">
 					<div class="wow fadeInUp" data-wow-delay="{{wowdelay($parent.$index + 4)}}s">
 						<h3>step {{$parent.$index + 5}}</h3>
 						<p class="step">{{steps[$parent.$index + 4].name}}</p><p class="step" ng-if="steps[$parent.$index + 4].info.hdfs_bytes_written">Data Size: {{dataSize(steps[$parent.$index + 4].info.hdfs_bytes_written)}}</p><p class="step">Duration: {{steps[$parent.$index + 4].exec_start_time != 0 ?  (steps[$parent.$index + 4].exec_end_time != 0 ? ((steps[$parent.$index + 4].exec_end_time - steps[$parent.$index + 4].exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
@@ -299,7 +364,7 @@
 				</div>
 
 				<!-- steps like 5-8 -->
-				<div ng-repeat="step in steps | orderBy:'-order'" ng-if="$index <= num - $parent.$index - 1 && $index > num - $parent.$index - 5" class="work-section-grid desktop-two-point-four columns" title="{{pops[step.order].popup}}">
+				<div ng-repeat="step in steps | orderBy:'-order'" ng-if="$index <= num - $parent.$index - 1 && $index > num - $parent.$index - 5" class="work-section-grid desktop-two-point-four columns" title="{{pops[step.name]}}">
 					<div class="wow fadeInUp" data-wow-delay="{{wowdelay(step.order)}}s">
 						<h3>step {{step.order + 1}}</h3>
 						<p class="step">{{step.name}}</p><p class="step" ng-if="step.info.hdfs_bytes_written">Data Size: {{dataSize(step.info.hdfs_bytes_written)}}</p><p class="step">Duration: {{step.exec_start_time != 0 ?  (step.exec_end_time != 0 ? ((step.exec_end_time - step.exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
@@ -311,7 +376,7 @@
 			<!-- steps rows -->
 			<div class="row widerow" >
 				<!-- steps like 10-13 -->
-				<div ng-repeat="step in steps" ng-if="$index >= $parent.$index + 5 && $index < $parent.$index + 9" class="work-section-grid desktop-two-point-four columns" title="{{pops[step.order].popup}}">
+				<div ng-repeat="step in steps" ng-if="$index >= $parent.$index + 5 && $index < $parent.$index + 9" class="work-section-grid desktop-two-point-four columns" title="{{pops[step.name]}}">
 					<div class="wow fadeInUp" data-wow-delay="{{wowdelay(step.order)}}s">
 						<h3>step {{step.order + 1}}</h3>
 						<p class="step">{{step.name}}</p><p class="step" ng-if="step.info.hdfs_bytes_written">Data Size: {{dataSize(step.info.hdfs_bytes_written)}}</p><p class="step">Duration: {{step.exec_start_time != 0 ?  (step.exec_end_time != 0 ? ((step.exec_end_time - step.exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
@@ -328,7 +393,7 @@
 				</div>
 
 				<!-- step like 14 -->
-				<div ng-if="num >= $parent.$index + 10" class="work-section-grid desktop-two-point-four columns" title="{{steps[$index+9].popup}}">
+				<div ng-if="num >= $parent.$index + 10" class="work-section-grid desktop-two-point-four columns" title="{{pops[steps[$index + 9].name]}}">
 					<div class="wow fadeInUp" data-wow-delay="{{wowdelay($parent.$index + 9)}}s">
 						<h3>steps {{$parent.$index + 10}}</h3>
 						<p class="step">{{steps[$parent.$index + 9].name}}</p><p class="step" ng-if="steps[$parent.$index + 9].info.hdfs_bytes_written">Data Size: {{dataSize(steps[$parent.$index + 9].info.hdfs_bytes_written)}}</p><p class="step">Duration: {{steps[$parent.$index + 9].exec_start_time != 0 ?  (steps[$parent.$index + 9].exec_end_time != 0 ? ((steps[$parent.$index + 9].exec_end_time - steps[$parent.$index + 9].exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
@@ -387,6 +452,10 @@
 			});
 		});
 		</script>
+		<script src="js/moment.js"></script>
+		<script src="js/d3.min.js"></script>
+		<script src="js/nv.d3.js"></script>
+		<script src="js/angularjs-nvd3-directives.js"></script>
 		</div>
 	</body>
 </html>

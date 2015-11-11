@@ -1,0 +1,15 @@
+{
+	"Create Intermediate Flat Hive Table" : "info about Create Intermediate Flat Hive Table",
+	"Extract Fact Table Distinct Columns" : "info about Extract Fact Table Distinct Columns",
+	"Build Dimension Dictionary" : "info about Build Dimension Dictionary",
+	"Build Base Cuboid Data" : "info about Build Base Cuboid Data",
+	"Build N-Dimension Cuboid Data : 2-Dimension" : "info about Build N-Dimension Cuboid Data : 2-Dimension",
+	"Build N-Dimension Cuboid Data : 1-Dimension" : "info about Build N-Dimension Cuboid Data : 1-Dimension",
+	"Build N-Dimension Cuboid Data : 0-Dimension" : "info about Build N-Dimension Cuboid Data : 0-Dimension",
+	"Calculate HTable Region Splits" : "info about Calculate HTable Region Splits",
+	"Create HTable" : "info about Create HTable",
+	"Convert Cuboid Data to HFile" : "info about Convert Cuboid Data to HFile",
+	"Load HFile to HBase Table" : "info about Load HFile to HBase Table",
+	"Update Cube Info" : "info about Update Cube Info",
+	"Garbage Collection" : "info about Garbage Collection"
+}

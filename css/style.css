@@ -937,19 +937,20 @@ a i:hover {
 /* ==================== 2.2 Position ==================== */
 
 .position {
-	background: #ffffff;
+	background: #f7f7f7;
 	width: 100%;
 	margin-top: -8vh;
 	padding-top: 8vh;
+	height: 14vh;
 }
 
 
 /* ==================== 2.3 Query ==================== */
 
 .query {
-	height: 86vh;
+	height: 80vh;
 	min-height: 660px;
-	padding-top: 60px;
+	padding-top: 25px;
 	padding-bottom: 50px;
 	background: #f7f7f7;
 }
