@@ -56,16 +56,19 @@
 
 
 <body class="body-push personal auto-close-menu" ng-app="kylinApp">
-	<div class="content">
-		
+	<div class="content" ng-controller="transCtrl">
 		<!-- Slides -->
 		<section id="slides">
 			<div style="background-image: url('images/placeholder-slide-2.jpg');" class="fullscreen-image1">
+				<p style="position:relative; top:20px; right:20px" ng-switch="lan" class="wow bounceInUp" data-wow-delay="0.3s">
+					<a href="" class="lang" ng-switch-when="zh" style="position: relative; float:right;" ng-click="changeLanguage('en')">English</a>
+					<a href="" class="lang" ng-switch-when="en" style="position: relative; float:right;" ng-click="changeLanguage('zh')">中文</a>
+				</p>
 				<div class="header-center fade-in">
 					<img src="images/logo1.png" alt="logo" class="kylin-logo2 wow bounceInDown" data-wow-delay="0.5s">
-					<h1 class="fittext white wow bounceInUp" data-wow-delay="0.3s">Welcome to Apache Kylin</h1>
-					<p class="uppercase white wow bounceInUp" data-wow-delay="0.5s">Extreme OLAP Engine for Big Data</p>
-					<p><a href="#position" class="button-large withmargin white-border wow bounceInUp" data-wow-delay="0.7s">Quick Tutorial<i class="fa fa-fw fa-angle-double-down" style="font-size: 15px"></i></a></p>
+					<h1 class="fittext white wow bounceInUp" data-wow-delay="0.3s">{{ 'Welcome to Apache Kylin' | translate }}</h1>
+					<p class="uppercase white wow bounceInUp" data-wow-delay="0.5s">{{ 'Extreme OLAP Engine for Big Data' | translate }}</p>
+					<p><a href="#position" class="button-large withmargin white-border wow bounceInUp" data-wow-delay="0.7s">{{ 'Quick Tutorial' | translate }}<i class="fa fa-fw fa-angle-double-down" style="font-size: 15px"></i></a></p>
 				</div>
 			</div>
 		</section>
@@ -77,7 +80,7 @@
 		<section id="query" class="query">
 			<div class="row widerow wow bounceInUp" data-wow-delay="0.3s">
 				<div class='col-xs-3 tables' ng-controller="tableCtrl">
-					<h3 id="blue">Tables</h3>
+					<h3 id="blue">{{ 'Tables' | translate }}</h3>
 					<ul ng-repeat="table in tables">
 						<span><a onClick="inputTab()">{{table.table_NAME}}</a></span>
 						<li ng-repeat="column in table.columns"><a onClick="inputTab()">{{column.column_NAME}} {{!!(column.type_NAME)?'(' + trimType(column.type_NAME) + ')' : ''}}</a></li>
@@ -85,7 +88,7 @@
 				</div>
 				<div class='box col-xs-9' >
 					<div class='box-header'>
-						<h3 class='box-title'>Interactive <small>OLAP on hadoop</small></h3>
+						<h3 class='box-title'>{{ 'Interactive' | translate }} <small>{{ 'OLAP on hadoop' | translate }}</small></h3>
 					</div>
 
 					<div class='box-body pad' ng-controller="gridCtrl">
@@ -94,21 +97,21 @@
 							<textarea id="queryarea"class="textarea"  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
 							<div class="row no-spacing">
 								<div class="offset-by-eight-point-five text-left">
-									<p><a href="#query" class="button no-margin" ng-click="submitQuery()">Try Me <i class="fa fa-fw fa-hand-o-up" style="font-size: 15px"></i></a></p>
+									<p><a href="#query" class="button no-margin" ng-click="submitQuery()">{{ 'Try Me' | translate }} <i class="fa fa-fw fa-hand-o-up" style="font-size: 15px"></i></a></p>
 								</div>
 							</div>
 						</form>
 						<div class="loading" ng-if="queryState">
 							<i class="fa fa-spinner fa-spin loadicon"></i>
-							executing
+							{{ 'executing' | translate }}
 						</div>
 						<div class="row" style="width:100%;" ng-if="queryFinish">
-							<h5 class="col-xs-4" style="padding-left:3px;">Response time: {{restime/1000 | number: 2}}s</h5>
-							<h5 class="col-xs-6">Result length: {{curQuery.result.results.length}}</h5>
+							<h5 class="col-xs-4" style="padding-left:3px;">{{ 'Response time' | translate }}: {{restime/1000 | number: 2}}s</h5>
+							<h5 class="col-xs-6">{{ 'Result length' | translate }}: {{curQuery.result.results.length}}</h5>
 							<p class="col-xs-2" style="padding-right:0px;"><button class="btn btn-default btn-xs" style="float:right;"
 							ng-click="curQuery.graph.show=!curQuery.graph.show;buildGraphMetadata(curQuery);resetGraph(curQuery);refreshGraphData(curQuery)">
-								<span ng-if="!curQuery.graph.show"><i class="fa fa-bar-chart-o"></i> Visualization</span>
-								<span ng-if="curQuery.graph.show"><i class="fa fa-list-ul"></i> Grid</span>
+								<span ng-if="!curQuery.graph.show"><i class="fa fa-bar-chart-o"></i> {{ 'Visualization' | translate }}</span>
+								<span ng-if="curQuery.graph.show"><i class="fa fa-list-ul"></i> {{ 'Grid' | translate }}</span>
 							</button></p>
 						</div>
 						<div id="result-grid" ng-if="queryFinish && !curQuery.graph.show">
@@ -116,15 +119,15 @@
 						</div>
 						<div ng-if="queryFinish && curQuery.graph.show">
 							<div class="row" style="width:100%;">
-								<label style="float:left; height: 22px; line-height: 22px; padding-left:3px;">Graph Type:</label>
+								<label style="float:left; height: 22px; line-height: 22px; padding-left:3px;">{{ 'Graph Type' | translate }}:</label>
 								<select style="float:left; width: 100px; height: 22px; line-height: 22px; margin-left: 15px;" class="form-control" ng-model="curQuery.graph.type" ng-change="resetGraph(curQuery);refreshGraphData(curQuery)" ng-options="type as type.name for type in chartTypes"></select>
 								
 								<label style="float:left; height: 22px; line-height: 22px; padding-left:35px;">Dimensions:</label>
-								<select style="float:left; width: 150px; height: 22px; line-height: 22px; margin-left: 15px;" class="form-control" ng-model="curQuery.graph.state.dimensions" ng-change="refreshGraphData(curQuery)" ng-options="dimension as dimension.column.label for dimension in curQuery.graph.meta.dimensions | filter: mappingToChartype"><option value="">-- choose --</option></select>
+								<select style="float:left; width: 150px; height: 22px; line-height: 22px; margin-left: 15px;" class="form-control" ng-model="curQuery.graph.state.dimensions" ng-change="refreshGraphData(curQuery)" ng-options="dimension as dimension.column.label for dimension in curQuery.graph.meta.dimensions | filter: mappingToChartype"><option value="">-- {{ 'choose' | translate }} --</option></select>
 								
 								<label style="float:left; height: 22px; line-height: 22px; padding-left:35px;">Metrics:</label>
-								<select style="float:left; width: 150px; height: 22px; line-height: 22px; margin-left: 15px;" class="form-control" ng-if="curQuery.graph.type.metrics.multiple" multiple  ng-model="curQuery.graph.state.metrics" ng-options="metrics as metrics.column.label for metrics in curQuery.graph.meta.metrics" ng-change="refreshGraphData(curQuery)"><option value="">-- choose --</option></select>
-								<select style="float:left; width: 150px; height: 22px; line-height: 22px; margin-left: 15px;" class="form-control" ng-if="!curQuery.graph.type.metrics.multiple" ng-model="curQuery.graph.state.metrics" ng-options="metrics as metrics.column.label for metrics in curQuery.graph.meta.metrics" ng-change="refreshGraphData(curQuery)"><option value="">-- choose --</option></select>
+								<select style="float:left; width: 150px; height: 22px; line-height: 22px; margin-left: 15px;" class="form-control" ng-if="curQuery.graph.type.metrics.multiple" multiple  ng-model="curQuery.graph.state.metrics" ng-options="metrics as metrics.column.label for metrics in curQuery.graph.meta.metrics" ng-change="refreshGraphData(curQuery)"><option value="">-- {{ 'choose' | translate }} --</option></select>
+								<select style="float:left; width: 150px; height: 22px; line-height: 22px; margin-left: 15px;" class="form-control" ng-if="!curQuery.graph.type.metrics.multiple" ng-model="curQuery.graph.state.metrics" ng-options="metrics as metrics.column.label for metrics in curQuery.graph.meta.metrics" ng-change="refreshGraphData(curQuery)"><option value="">-- {{ 'choose' | translate }} --</option></select>
 							</div>
 							<div ng-if="curQuery.graph.type.value == 'line'">
 								<nvd3-line-chart
@@ -173,16 +176,16 @@
 					</div>
 				</div>
 			</div>
-			<p><a href="#data-model" class="button-large dark-border">Data Model<i class="fa fa-fw fa-angle-double-down" style="font-size: 15px"></i></a></p>
+			<p><a href="#data-model" class="button-large dark-border">{{ 'Data Model' | translate }}<i class="fa fa-fw fa-angle-double-down" style="font-size: 15px"></i></a></p>
 			<!--a href="#data-model" class="down"><i class="icon-angle-down"></i></a-->
 		</section>
 
 		<!-- data-model -->
-		<section id="data-model" class="data-model">
+		<section id="data-model" class="data-model" ng-controller="modelCtrl">
 			<div class="row">
 				<div class="ten columns offset-by-one title wow bounceIn">
-					<h1>Glance over</h1>
-					<h2>Data Model</h2>
+					<h1>{{ 'Glance over' | translate }}</h1>
+					<h2>{{ 'Data Model' | translate }}</h2>
 					<hr>
 				</div>
 			</div>
@@ -200,13 +203,13 @@
 					<script src="js/tree.js"></script>
 				</div>
 				<div class="col-xs-5 schema wow rotateInDownRight">
-					<h3>Data Model:  <normal>this data model maintains airline data of 2014</normal></h3>
-					<h3>Fact Table:  <normal>table AIRLINE contains information of each flight including time delay</normal></h3>
-					<h3>Lookup Table:  <normal>table ORIGIN and DEST contain detail information of the departure and arrival airport</normal></h3>
-					<h6><normal>Check <a href="http://kylin.incubator.apache.org/docs/gettingstarted/terminology.html">here</a> to learn the related terminology</normal></h6>
+					<h3>{{ 'Data Model' | translate }}:  <normal>{{dataModel}}</normal></h3>
+					<h3>{{ 'Fact Table' | translate }}:  <normal>{{factTable}}</normal></h3>
+					<h3>{{ 'Lookup Table' | translate }}:  <normal>{{lookupTable}}</normal></h3>
+					<h6><normal>{{ 'Check' | translate }} <a href="http://kylin.incubator.apache.org/docs/gettingstarted/terminology.html">{{ 'here' | translate }}</a> {{ 'to learn the related terminology' | translate }}</normal></h6>
 				</div>
 			</div>
-			<p><a href="#position2" class="button-large withmargin white-border">Cube Design<i class="fa fa-fw fa-angle-double-down" style="font-size: 15px"></i></a></p>
+			<p><a href="#position2" class="button-large withmargin white-border">{{ 'Cube Design' | translate }}<i class="fa fa-fw fa-angle-double-down" style="font-size: 15px"></i></a></p>
 		</section>
 
 		<!-- Set position -->
@@ -230,10 +233,10 @@
 				<div>
 					<table class="table table-striped">
 						<tr>
-							<td>Name</td>
-							<td>Table Name</td>
-							<td>Type</td>
-							<td>Detail</td>
+							<td>{{ 'Name' | translate }}</td>
+							<td>{{ 'Table Name' | translate }}</td>
+							<td>{{ 'Type' | translate }}</td>
+							<td>{{ 'Detail' | translate }}</td>
 						</tr>
 						<tr ng-repeat="dimension in cube.dimensions">
 							<td>{{dimension.name}}</td>
@@ -266,11 +269,11 @@
 				<div>
 					<table class="table table-striped">
 						<tr>
-							<td>Name</td>
-							<td>Expression</td>
-							<td>Param Type</td>
-							<td>Param Value</td>
-							<td>Return Type</td>
+							<td>{{ 'Name' | translate }}</td>
+							<td>{{ 'Expression' | translate }}</td>
+							<td>{{ 'Param Type' | translate }}</td>
+							<td>{{ 'Param Value' | translate }}</td>
+							<td>{{ 'Return Type' | translate }}</td>
 						</tr>
 						<tr ng-repeat="measure in cube.measures">
 							<td>{{measure.name}}</td>
@@ -286,7 +289,7 @@
 			<br />
 			<br />
 			<!--a href="#workflow" class="down"><i class="icon-angle-down"></i></a-->
-			<p style="margin-bottom: 0px"><a href="#workflow" class="button-large withmargin2 dark-border">Build Workflow<i class="fa fa-fw fa-angle-double-down" style="font-size: 15px"></i></a></p>
+			<p style="margin-bottom: 0px"><a href="#workflow" class="button-large withmargin2 dark-border">{{ 'Build Workflow' | translate }}<i class="fa fa-fw fa-angle-double-down" style="font-size: 15px"></i></a></p>
 		</section>
 
 		<!-- Workflow -->
@@ -294,7 +297,7 @@
 			<!-- Title -->
 			<div class="row">
 				<div class="ten columns offset-by-one title wow bounceIn">
-					<h2>Build Workflow</h2>
+					<h2>{{ 'Build Workflow' | translate }}</h2>
 					<hr>
 				</div>
 			</div>
@@ -304,9 +307,9 @@
 				<!-- start step -->
 				<div class=" work-section-grid desktop-two-point-four columns">
 					<div>
-						<h3>start</h3>
-						<p class="step">Job Name: {{jobName}}</p>
-						<p class="step" ng-if="(num + 1) % 5 == 0">Duration: {{(duration/60 | number:2) + ' mins'}}</br>MapReduce Waiting: {{(mrWaiting/60 | number:2) + ' mins'}}</p>
+						<h3>{{ 'start' | translate }}</h3>
+						<p class="step">{{ 'Job Name' | translate }}: {{jobName}}</p>
+						<p class="step" ng-if="(num + 1) % 5 == 0">{{ 'Duration' | translate }}: {{(duration/60 | number:2) + ' mins'}}</br>{{ 'MapReduce Waiting' | translate }}: {{(mrWaiting/60 | number:2) + ' mins'}}</p>
 						<span class="arrow1"><img src="images/arrow1.png" alt="" /></span>
 					</div>
 				</div>
@@ -314,8 +317,8 @@
 				<!-- steps 1-3 -->
 				<div ng-repeat="step in steps" ng-if="$index < 3" class="work-section-grid desktop-two-point-four columns" title="{{pops[step.name]}}">
 					<div class="wow fadeInUp" data-wow-delay="{{wowdelay(step.order)}}s">
-						<h3>step {{step.order+1}}</h3>
-						<p class="step">{{step.name}}</p><p class="step" ng-if="step.info.hdfs_bytes_written">Data Size: {{dataSize(step.info.hdfs_bytes_written)}}</p><p class="step">Duration: {{step.exec_start_time != 0 ?  (step.exec_end_time != 0 ? ((step.exec_end_time - step.exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
+						<h3>{{ 'step' | translate }} {{step.order+1}}</h3>
+						<p class="step">{{step.name}}</p><p class="step" ng-if="step.info.hdfs_bytes_written">{{ 'Data Size' | translate }}: {{dataSize(step.info.hdfs_bytes_written)}}</p><p class="step">{{ 'Duration' | translate }}: {{step.exec_start_time != 0 ?  (step.exec_end_time != 0 ? ((step.exec_end_time - step.exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
 						<span class="arrow1"><img src="images/arrow1.png" alt="" /></span>
 					</div>
 				</div>
@@ -323,16 +326,16 @@
 				<!-- step end -->
 				<div ng-if="num < 4" class=" work-section-grid desktop-two-point-four columns">
 					<div class=" wow fadeInUp" data-wow-delay="{{wowdelay(num)}}s">
-						<h3>end</h3>
-						<p class="step">Duration: {{(duration/60 | number:2) + ' mins'}}</br>MapReduce Waiting: {{(mrWaiting/60 | number:2) + ' mins'}}</p>
+						<h3>{{ 'end' | translate }}</h3>
+						<p class="step">{{ 'Duration' | translate }}: {{(duration/60 | number:2) + ' mins'}}</br>{{ 'MapReduce Waiting' | translate }}: {{(mrWaiting/60 | number:2) + ' mins'}}</p>
 					</div>
 				</div>
 
 				<!-- step 4 -->
 				<div ng-if="num >= 4" class="work-section-grid desktop-two-point-four columns" title="{{pops[steps[3].name]}}">
 					<div class="wow fadeInUp" data-wow-delay="{{wowdelay(steps[3].order)}}s">
-						<h3>step 4</h3>
-						<p class="step">{{steps[3].name}}</p><p class="step" ng-if="steps[3].info.hdfs_bytes_written">Data Size: {{dataSize(steps[3].info.hdfs_bytes_written)}}</p><p class="step">Duration: {{steps[3].exec_start_time != 0 ?  (steps[3].exec_end_time != 0 ? ((steps[3].exec_end_time - steps[3].exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
+						<h3>{{ 'step' | translate }} 4</h3>
+						<p class="step">{{steps[3].name}}</p><p class="step" ng-if="steps[3].info.hdfs_bytes_written">{{ 'Data Size' | translate }}: {{dataSize(steps[3].info.hdfs_bytes_written)}}</p><p class="step">{{ 'Duration' | translate }}: {{steps[3].exec_start_time != 0 ?  (steps[3].exec_end_time != 0 ? ((steps[3].exec_end_time - steps[3].exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
 						<span class="arrow3" ng-if="num != 4"><img src="images/arrow3.png" alt="" /></span>
 					</div>
 				</div>
@@ -345,8 +348,8 @@
 				<!-- step like 9 -->
 				<div ng-if="num >= $parent.$index + 5" class="work-section-grid desktop-two-point-four columns" title="{{pops[steps[$index + 4].name]}}">
 					<div class="wow fadeInUp" data-wow-delay="{{wowdelay($parent.$index + 4)}}s">
-						<h3>step {{$parent.$index + 5}}</h3>
-						<p class="step">{{steps[$parent.$index + 4].name}}</p><p class="step" ng-if="steps[$parent.$index + 4].info.hdfs_bytes_written">Data Size: {{dataSize(steps[$parent.$index + 4].info.hdfs_bytes_written)}}</p><p class="step">Duration: {{steps[$parent.$index + 4].exec_start_time != 0 ?  (steps[$parent.$index + 4].exec_end_time != 0 ? ((steps[$parent.$index + 4].exec_end_time - steps[$parent.$index + 4].exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
+						<h3>{{ 'step' | translate }} {{$parent.$index + 5}}</h3>
+						<p class="step">{{steps[$parent.$index + 4].name}}</p><p class="step" ng-if="steps[$parent.$index + 4].info.hdfs_bytes_written">{{ 'Data Size' | translate }}: {{dataSize(steps[$parent.$index + 4].info.hdfs_bytes_written)}}</p><p class="step">{{ 'Duration' | translate }}: {{steps[$parent.$index + 4].exec_start_time != 0 ?  (steps[$parent.$index + 4].exec_end_time != 0 ? ((steps[$parent.$index + 4].exec_end_time - steps[$parent.$index + 4].exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
 						<span class="arrow4" ng-if="($parent.$index + 1) / 5 + 1 != rownum"><img src="images/arrow4.png" alt="" /></span>
 					</div>
 				</div>
@@ -358,16 +361,16 @@
 				<!-- step end -->
 				<div ng-if="num > $parent.$index && num < $parent.$index + 5" class=" work-section-grid desktop-two-point-four columns">
 					<div class=" wow fadeInUp" data-wow-delay="{{wowdelay(num)}}s">
-						<h3>end</h3>
-						<p class="step">Duration: {{(duration/60 | number:2) + ' mins'}}</br>MapReduce Waiting: {{(mrWaiting/60 | number:2) + ' mins'}}</p>
+						<h3>{{ 'end' | translate }}</h3>
+						<p class="step">{{ 'Duration' | translate }}: {{(duration/60 | number:2) + ' mins'}}</br>{{ 'MapReduce Waiting' | translate }}: {{(mrWaiting/60 | number:2) + ' mins'}}</p>
 					</div>
 				</div>
 
 				<!-- steps like 5-8 -->
 				<div ng-repeat="step in steps | orderBy:'-order'" ng-if="$index <= num - $parent.$index - 1 && $index > num - $parent.$index - 5" class="work-section-grid desktop-two-point-four columns" title="{{pops[step.name]}}">
 					<div class="wow fadeInUp" data-wow-delay="{{wowdelay(step.order)}}s">
-						<h3>step {{step.order + 1}}</h3>
-						<p class="step">{{step.name}}</p><p class="step" ng-if="step.info.hdfs_bytes_written">Data Size: {{dataSize(step.info.hdfs_bytes_written)}}</p><p class="step">Duration: {{step.exec_start_time != 0 ?  (step.exec_end_time != 0 ? ((step.exec_end_time - step.exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
+						<h3>{{ 'step' | translate }} {{step.order + 1}}</h3>
+						<p class="step">{{step.name}}</p><p class="step" ng-if="step.info.hdfs_bytes_written">{{ 'Data Size' | translate }}: {{dataSize(step.info.hdfs_bytes_written)}}</p><p class="step">{{ 'Duration' | translate }}: {{step.exec_start_time != 0 ?  (step.exec_end_time != 0 ? ((step.exec_end_time - step.exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
 						<span ng-if="($parent.$parent.$index + 1) / 5 + 1 == rownum" class="arrow5"><img src="images/arrow5.png" alt="" /></span>
 					</div>
 				</div>
@@ -378,8 +381,8 @@
 				<!-- steps like 10-13 -->
 				<div ng-repeat="step in steps" ng-if="$index >= $parent.$index + 5 && $index < $parent.$index + 9" class="work-section-grid desktop-two-point-four columns" title="{{pops[step.name]}}">
 					<div class="wow fadeInUp" data-wow-delay="{{wowdelay(step.order)}}s">
-						<h3>step {{step.order + 1}}</h3>
-						<p class="step">{{step.name}}</p><p class="step" ng-if="step.info.hdfs_bytes_written">Data Size: {{dataSize(step.info.hdfs_bytes_written)}}</p><p class="step">Duration: {{step.exec_start_time != 0 ?  (step.exec_end_time != 0 ? ((step.exec_end_time - step.exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
+						<h3>{{ 'step' | translate }} {{step.order + 1}}</h3>
+						<p class="step">{{step.name}}</p><p class="step" ng-if="step.info.hdfs_bytes_written">{{ 'Data Size' | translate }}: {{dataSize(step.info.hdfs_bytes_written)}}</p><p class="step">{{ 'Duration' | translate }}: {{step.exec_start_time != 0 ?  (step.exec_end_time != 0 ? ((step.exec_end_time - step.exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
 						<span ng-if="($parent.$parent.$index + 6) / 5 + 1 == rownum" class="arrow2"><img src="images/arrow2.png" alt="" /></span>
 					</div>
 				</div>
@@ -387,16 +390,16 @@
 				<!-- step end -->
 				<div ng-if="num > $parent.$index + 5 && num < $parent.$index + 10" class=" work-section-grid desktop-two-point-four columns">
 					<div class=" wow fadeInUp" data-wow-delay="{{wowdelay(num)}}s">
-						<h3>end</h3>
-						<p class="step">Duration: {{(duration/60 | number:2) + ' mins'}}</br>MapReduce Waiting: {{(mrWaiting/60 | number:2) + ' mins'}}</p>
+						<h3>{{ 'end' | translate }}</h3>
+						<p class="step">{{ 'Duration' | translate }}: {{(duration/60 | number:2) + ' mins'}}</br>{{ 'MapReduce Waiting' | translate }}: {{(mrWaiting/60 | number:2) + ' mins'}}</p>
 					</div>
 				</div>
 
 				<!-- step like 14 -->
 				<div ng-if="num >= $parent.$index + 10" class="work-section-grid desktop-two-point-four columns" title="{{pops[steps[$index + 9].name]}}">
 					<div class="wow fadeInUp" data-wow-delay="{{wowdelay($parent.$index + 9)}}s">
-						<h3>steps {{$parent.$index + 10}}</h3>
-						<p class="step">{{steps[$parent.$index + 9].name}}</p><p class="step" ng-if="steps[$parent.$index + 9].info.hdfs_bytes_written">Data Size: {{dataSize(steps[$parent.$index + 9].info.hdfs_bytes_written)}}</p><p class="step">Duration: {{steps[$parent.$index + 9].exec_start_time != 0 ?  (steps[$parent.$index + 9].exec_end_time != 0 ? ((steps[$parent.$index + 9].exec_end_time - steps[$parent.$index + 9].exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
+						<h3>{{ 'step' | translate }} {{$parent.$index + 10}}</h3>
+						<p class="step">{{steps[$parent.$index + 9].name}}</p><p class="step" ng-if="steps[$parent.$index + 9].info.hdfs_bytes_written">{{ 'Data Size' | translate }}: {{dataSize(steps[$parent.$index + 9].info.hdfs_bytes_written)}}</p><p class="step">{{ 'Duration' | translate }}: {{steps[$parent.$index + 9].exec_start_time != 0 ?  (steps[$parent.$index + 9].exec_end_time != 0 ? ((steps[$parent.$index + 9].exec_end_time - steps[$parent.$index + 9].exec_start_time)/1000/60 | number:2) + ' mins' : '0 seconds') : '0 seconds'}}</p>
 						<span class="arrow3" ng-if="($parent.$index + 6) / 5 + 1 != rownum"><img src="images/arrow3.png" alt="" /></span>
 					</div>
 				</div>
@@ -410,8 +413,8 @@
 			<div class="row wow bounceIn">
 				<div class="twelve columns">
 					<p>
-						<a href="http://kylin.io" class="button-large withmargin3 white-border">Visit kylin.io</a>
-						<a href="#" class="button-large withmargin3 dark-bg">View Kylin Web</a>
+						<a href="http://kylin.io" class="button-large withmargin3 white-border">{{ 'Visit kylin.io' | translate }}</a>
+						<a href="#" class="button-large withmargin3 dark-bg">{{ 'View Kylin Web' | translate }}</a>
 					</p>
 				</div>
 			</div>
@@ -456,6 +459,7 @@
 		<script src="js/d3.min.js"></script>
 		<script src="js/nv.d3.js"></script>
 		<script src="js/angularjs-nvd3-directives.js"></script>
+		<script src="js/angular-translate.js"></script>
 		</div>
 	</body>
 </html>

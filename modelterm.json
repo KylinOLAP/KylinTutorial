@@ -1,0 +1,5 @@
+{
+	"dataModel": "this data model maintains airline data of 2014",
+	"factTable": "table AIRLINE contains information of each flight including time delay",
+	"lookupTable": "table ORIGIN and DEST contain detail information of the departure and arrival airport"
+}
