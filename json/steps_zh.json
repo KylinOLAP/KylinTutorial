@@ -1,0 +1,15 @@
+{
+	"Create Intermediate Flat Hive Table" : "Create Intermediate Flat Hive Table的信息",
+	"Extract Fact Table Distinct Columns" : "Extract Fact Table Distinct Columns的信息",
+	"Build Dimension Dictionary" : "Build Dimension Dictionary的信息",
+	"Build Base Cuboid Data" : "Build Base Cuboid Data的信息",
+	"Build N-Dimension Cuboid Data : 2-Dimension" : "Build N-Dimension Cuboid Data : 2-Dimension的信息",
+	"Build N-Dimension Cuboid Data : 1-Dimension" : "Build N-Dimension Cuboid Data : 1-Dimension的信息",
+	"Build N-Dimension Cuboid Data : 0-Dimension" : "Build N-Dimension Cuboid Data : 0-Dimension的信息",
+	"Calculate HTable Region Splits" : "Calculate HTable Region Splits的信息",
+	"Create HTable" : "Create HTable的信息",
+	"Convert Cuboid Data to HFile" : "Convert Cuboid Data to HFile的信息",
+	"Load HFile to HBase Table" : "Load HFile to HBase Table的信息",
+	"Update Cube Info" : "Update Cube Info的信息",
+	"Garbage Collection" : "Garbage Collection的信息"
+}

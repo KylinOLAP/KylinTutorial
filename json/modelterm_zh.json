@@ -1,0 +1,5 @@
+{
+	"dataModel": "这个数据模型包含了2014年的航班数据",
+	"factTable": "AIRLINE表包含了每个航班的信息，包括延误时间",
+	"lookupTable": "ORIGIN表和DEST表包含了出发和到达机场的详细信息"
+}

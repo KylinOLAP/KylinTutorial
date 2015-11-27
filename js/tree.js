@@ -18,7 +18,7 @@ var svg = d3.select("#tree-container").append("svg")
 	.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("airline.json", function(error, airline) {
+d3.json("json/airline.json", function(error, airline) {
 	if (error) throw error;
 
 	root = airline;

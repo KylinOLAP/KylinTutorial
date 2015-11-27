@@ -91,12 +91,55 @@ kylinApp.config(['$translateProvider', function ($translateProvider) {
 	$translateProvider.preferredLanguage('en');
 }]);
 
-kylinApp.controller('transCtrl', function ($scope, $translate) {
+kylinApp.controller('transCtrl', function ($scope, $translate, $http) {
 	$scope.lan = 'en';
+
+	$http.get("json/modelterm.json").success(function(response) {
+		$scope.dataModel = response.dataModel;
+		$scope.factTable = response.factTable;
+		$scope.lookupTable = response.lookupTable;
+	});
+
+	$http.get("json/dimtype.json").success(function(response) {
+		$scope.normal = response.normal;
+		$scope.derived = response.derived;
+	});
+
+	$http.get("json/steps.json").success(function(response) {
+		$scope.pops = response;
+	});
 
 	$scope.changeLanguage = function (key) {
 		$scope.lan = key;
 		$translate.use(key);
+
+		if (key == "en") {
+			$http.get("json/modelterm.json").success(function(response) {
+				$scope.dataModel = response.dataModel;
+				$scope.factTable = response.factTable;
+				$scope.lookupTable = response.lookupTable;
+			});
+			$http.get("json/dimtype.json").success(function(response) {
+				$scope.normal = response.normal;
+				$scope.derived = response.derived;
+			});
+			$http.get("json/steps.json").success(function(response) {
+				$scope.pops = response;
+			});
+		} else if (key == "zh") {
+			$http.get("json/modelterm_zh.json").success(function(response) {
+				$scope.dataModel = response.dataModel;
+				$scope.factTable = response.factTable;
+				$scope.lookupTable = response.lookupTable;
+			});
+			$http.get("json/dimtype_zh.json").success(function(response) {
+				$scope.normal = response.normal;
+				$scope.derived = response.derived;
+			});
+			$http.get("json/steps_zh.json").success(function(response) {
+				$scope.pops = response;
+			});
+		}
 	};
 });
 
@@ -451,20 +494,8 @@ kylinApp.controller('tableCtrl', function($scope, $http) {
 	}
 });
 
-kylinApp.controller('modelCtrl', function($scope, $http) {
-	$http.get("modelterm.json").success(function(response) {
-		$scope.dataModel = response.dataModel;
-		$scope.factTable = response.factTable;
-		$scope.lookupTable = response.lookupTable;
-	});
-});
 
 kylinApp.controller('cubeCtrl', function($scope, $http) {
-	$http.get("dimtype.json").success(function(response) {
-		$scope.normal = response.normal;
-		$scope.derived = response.derived;
-	});
-
 	var req = {
 		method: 'GET',
 		url: 'http://66.211.189.71/kylin/api/cube_desc/kylin_airline_sample',
@@ -499,10 +530,6 @@ kylinApp.controller('stepCtrl', function($scope, $http) {
 	/*$http.get("popup.json").success(function(response) {
 		$scope.pops = response.pops;
 	});*/
-
-	$http.get("steps.json").success(function(response) {
-		$scope.pops = response;
-	});
 
 	var req = {
 		method: 'GET',
