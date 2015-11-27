@@ -1,5 +1,5 @@
 {
-	"normal": "normal dimension的信息",
-	"derived": "derived dimension的信息",
-	"hierarchy": "hierarchy dimension的信息"
+	"normal": "仅包含一个字段的维度",
+	"derived": "从主键衍生出来的维度，例如SiteName就是从SiteID衍生",
+	"hierarchy": "有层级关系的维度，例如国家，省和城市"
 }
